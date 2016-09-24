@@ -17,12 +17,7 @@ public class ListOfCharactersActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.common_activity);
-
-        if (savedInstanceState == null) {
-
             startFragment();
-        }
-
     }
 
 

@@ -48,7 +48,7 @@ public class ListOfCharactersInteractorImpl implements IListOfCharactersInteract
             e.printStackTrace();
         }
 
-        Observable<ListOfCarachtersDTO> observable = listOfCharactersAPI.getAllCharacters(timeStamp ,publicKey,hashKey );
+        Observable<ListOfCarachtersDTO> observable = listOfCharactersAPI.getAllCharacters(timeStamp ,publicKey,hashKey ,"5");
 
         mCompositeSubscription.add(observable
                 .subscribeOn(Schedulers.newThread())

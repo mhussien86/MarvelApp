@@ -8,12 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.ihorizons.marvelapp.R;
 import com.ihorizons.marvelapp.dtos.ListOfCarachtersDTO;
 import com.ihorizons.marvelapp.views.BaseFragment;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by mohamed on 24/09/16.
@@ -25,11 +27,13 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
 
     IListOfCharactersPresenter listOfCharactersPresenter ;
 
+    CharactersListAdapter charactersListAdapter ;
+
     @Bind(R.id.layout_loading)
     View mLoadingLayout ;
 
-//    @Bind(R.id.recycler_view)
-//    RecyclerView mRecyclerView ;
+    @Bind(R.id.recycler_view)
+    RecyclerView mRecyclerView ;
 
     @Nullable
     @Override
@@ -37,6 +41,7 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
 
         mRootView = inflater.inflate(R.layout.characters_list_fragment,container,false);
 
+        ButterKnife.bind(this,mRootView);
         listOfCharactersPresenter = new ListOfCharactersPresenterImpl(this);
         listOfCharactersPresenter.getMarvelCharactersList();
 
@@ -48,23 +53,22 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-//        mRecyclerView.setLayoutManager(mLayoutManager);
-
-
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(llm);
+        mRecyclerView.setHasFixedSize(true);
     }
 
     @Override
     public void showLoading() {
 
-        if(mLoadingLayout !=null)
         mLoadingLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
 
-        if(mLoadingLayout !=null)
+
         mLoadingLayout.setVisibility(View.GONE);
     }
 
@@ -86,8 +90,16 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
     public void setCharactersList(ListOfCarachtersDTO listOfCarachtersDTO) {
 
 
+        charactersListAdapter = new CharactersListAdapter(listOfCarachtersDTO.getData().getResults(), new CharactersListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(ListOfCarachtersDTO.Result result) {
 
 
+
+            }
+        },getContext());
+
+        mRecyclerView.setAdapter(charactersListAdapter);
 
     }
 
@@ -96,5 +108,6 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
     public void onDestroy() {
         super.onDestroy();
         listOfCharactersPresenter.onDestroy();
+        ButterKnife.unbind(this);
     }
 }

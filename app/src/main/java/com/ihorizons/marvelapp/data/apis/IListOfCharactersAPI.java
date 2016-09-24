@@ -16,6 +16,6 @@ public interface IListOfCharactersAPI {
 
 
     @GET("v1/public/characters?")
-    Observable<ListOfCarachtersDTO> getAllCharacters(@Query("ts") String timestamp , @Query("apikey") String apikey, @Query("hash") String hash );
+    Observable<ListOfCarachtersDTO> getAllCharacters(@Query("ts") String timestamp , @Query("apikey") String apikey, @Query("hash") String hash , @Query("limit") String limit );
 
 }
