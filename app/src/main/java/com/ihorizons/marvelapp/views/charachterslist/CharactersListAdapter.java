@@ -2,6 +2,7 @@ package com.ihorizons.marvelapp.views.charachterslist;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -54,18 +55,19 @@ public class CharactersListAdapter extends RecyclerView.Adapter<CharactersViewHo
 
 //        Glide.with(context).load(results.get(position).getThumbnail().getPath()+"."+results.get(position).getThumbnail().getExtension()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).crossFade().centerCrop().into(holder.characterImage);
 
-        Glide.with(context).load(results.get(position).getThumbnail().getPath()+"."+results.get(position).getThumbnail().getExtension()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).centerCrop().into(new SimpleTarget<Bitmap>() {
+        Glide.with(context).load(results.get(position).getThumbnail().getPath()+"."+results.get(position).getThumbnail().getExtension()).asBitmap().fitCenter().centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).into(new SimpleTarget<Bitmap>() {
             @Override
-            public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+            public void onResourceReady(final Bitmap bitmap, GlideAnimation glideAnimation) {
                 holder.characterImage.setImageBitmap(bitmap); // Possibly runOnUiThread()
                 Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
                     @Override
                     public void onGenerated(Palette palette) {
                         try {
 //                            holder.textBackground.setBackgroundColor(palette.getDarkVibrantSwatch().getRgb());
-                            holder.characterName.setTextColor(palette.getDarkVibrantSwatch().getTitleTextColor());
+                            holder.characterName.setTextColor(Color.WHITE);
                         } catch (Exception e) {
                             e.printStackTrace();
+                            holder.characterName.setTextColor(Color.WHITE);
                         }
                     }
                 });
