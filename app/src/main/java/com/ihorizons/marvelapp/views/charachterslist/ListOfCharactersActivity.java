@@ -2,7 +2,9 @@ package com.ihorizons.marvelapp.views.charachterslist;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 
+import com.ihorizons.marvelapp.R;
 import com.ihorizons.marvelapp.views.BaseActivity;
 
 /**
@@ -15,6 +17,16 @@ public class ListOfCharactersActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        startFragment();
 
     }
+
+
+    private void startFragment() {
+
+        ListOfCharactersFragment listOfCharactersFragment = new ListOfCharactersFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.layCommonActivity, listOfCharactersFragment).commit();
+    }
+
 }
