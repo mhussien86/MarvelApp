@@ -7,7 +7,7 @@ import com.ihorizons.marvelapp.interactors.ListOfCharactersInteractorImpl;
 /**
  * Created by mohamed on 24/09/16.
  */
-public class ListOfCharactersPresenterImpl implements IListOfCharactersPresenter, IListOfCharactersInteractor.OnAllCharactersFetchedListener {
+public class ListOfCharactersPresenterImpl implements IListOfCharactersPresenter, IListOfCharactersInteractor.OnAllCharactersFetchedListener, IListOfCharactersInteractor.OnMoreCharactersFetchedListener {
 
 
     private IListOfCharactersView listOfCharactersView ;
@@ -34,6 +34,12 @@ public class ListOfCharactersPresenterImpl implements IListOfCharactersPresenter
     }
 
     @Override
+    public void getMoreMarvelCharacters(int next) {
+        listOfCharactersInteractor.loadMoreMarvelCharcters(next , this);
+
+    }
+
+    @Override
     public void onSuccess(ListOfCarachtersDTO listOfCarachtersDTO) {
 
         listOfCharactersView.hideLoading();
@@ -45,5 +51,18 @@ public class ListOfCharactersPresenterImpl implements IListOfCharactersPresenter
 
         listOfCharactersView.hideLoading();
         listOfCharactersView.showError(errorMessage);
+    }
+
+    @Override
+    public void onMoreSuccess(ListOfCarachtersDTO listOfCarachtersDTO) {
+
+        listOfCharactersView.hideLoading();
+        listOfCharactersView.handleMoreItems(listOfCarachtersDTO);
+
+    }
+
+    @Override
+    public void onMoreError(String errorMessage) {
+
     }
 }

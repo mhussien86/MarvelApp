@@ -16,4 +16,6 @@ public interface IListOfCharactersView {
     void showError(String errorMessage);
 
     void setCharactersList(ListOfCarachtersDTO listOfCarachtersDTO);
+
+    void handleMoreItems(ListOfCarachtersDTO listOfCarachtersDTO);
 }

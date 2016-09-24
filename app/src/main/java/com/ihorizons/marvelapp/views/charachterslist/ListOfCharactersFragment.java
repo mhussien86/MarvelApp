@@ -8,11 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import com.ihorizons.marvelapp.R;
 import com.ihorizons.marvelapp.dtos.ListOfCarachtersDTO;
 import com.ihorizons.marvelapp.views.BaseFragment;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,6 +36,11 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView ;
 
+
+    int next = 0 ;
+    ListOfCarachtersDTO.Data listOfCarachtersDTO  ;
+
+    List<ListOfCarachtersDTO.Result> resultList ;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -87,8 +93,10 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
     }
 
     @Override
-    public void setCharactersList(ListOfCarachtersDTO listOfCarachtersDTO) {
+    public void setCharactersList(final ListOfCarachtersDTO listOfCarachtersDTO) {
 
+
+        resultList = listOfCarachtersDTO.getData().getResults();
 
         charactersListAdapter = new CharactersListAdapter(listOfCarachtersDTO.getData().getResults(), new CharactersListAdapter.OnItemClickListener() {
             @Override
@@ -97,10 +105,27 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
 
 
             }
-        },getContext());
+        },getContext(),mRecyclerView);
+
 
         mRecyclerView.setAdapter(charactersListAdapter);
+        charactersListAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
 
+                next += (listOfCarachtersDTO.getData().getLimit()+listOfCarachtersDTO.getData().getOffset()) ;
+                listOfCharactersPresenter.getMoreMarvelCharacters(next);
+
+            }
+        });
+    }
+
+    @Override
+    public void handleMoreItems(ListOfCarachtersDTO listOfCarachtersDTO) {
+
+        resultList.addAll(listOfCarachtersDTO.getData().getResults());
+        charactersListAdapter.notifyDataSetChanged();
+        charactersListAdapter.setLoaded();
     }
 
 

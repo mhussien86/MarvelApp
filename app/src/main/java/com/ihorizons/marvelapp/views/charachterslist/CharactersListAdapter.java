@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,65 +22,118 @@ import java.util.List;
 /**
  * Created by mohamed on 24/09/16.
  */
-public class CharactersListAdapter extends RecyclerView.Adapter<CharactersViewHolder> {
+public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     private List<ListOfCarachtersDTO.Result> results ;
     private final OnItemClickListener listener;
-
+    private OnLoadMoreListener mOnLoadMoreListener;
     private Context context ;
 
+    private final int VIEW_TYPE_ITEM = 0;
+    private final int VIEW_TYPE_LOADING = 1;
+
+    private boolean isLoading;
+    private int visibleThreshold ;
+    private int lastVisibleItem, totalItemCount;
     public interface OnItemClickListener {
         void onItemClick(ListOfCarachtersDTO.Result result);
     }
 
-    public CharactersListAdapter (List<ListOfCarachtersDTO.Result> results, OnItemClickListener listener, Context context){
+    public CharactersListAdapter (List<ListOfCarachtersDTO.Result> results, OnItemClickListener listener, Context context , RecyclerView mRecyclerView){
         this.results = results ;
         this.listener = listener ;
         this.context = context ;
+
+        final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                totalItemCount = linearLayoutManager.getItemCount();
+                visibleThreshold = linearLayoutManager.getChildCount();
+                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+
+
+                if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+                    if (mOnLoadMoreListener != null) {
+                        mOnLoadMoreListener.onLoadMore();
+                    }
+                    isLoading = true;
+                }
+            }
+        });
+    }
+
+
+    public void setOnLoadMoreListener(OnLoadMoreListener mOnLoadMoreListener) {
+        this.mOnLoadMoreListener = mOnLoadMoreListener;
     }
 
     @Override
-    public CharactersViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.character_list_item,parent,false);
+    public int getItemViewType(int position) {
+        return results.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+    }
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        if (viewType == VIEW_TYPE_LOADING) {
+            View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_loading_item, parent, false);
+            return new LoadingViewHolder(view);
+        }
+
+            View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.character_list_item, parent, false);
+            new CharactersViewHolder(listItem);
 
         return new CharactersViewHolder(listItem);
     }
 
     @Override
-    public void onBindViewHolder(final CharactersViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
 
-        holder.bind(results.get(position), listener);
-        ListOfCarachtersDTO.Result result = results.get(position) ;
-        holder.characterName.setText(result.getName());
+        if(holder instanceof CharactersViewHolder){
+
+            final CharactersViewHolder charactersViewHolder = (CharactersViewHolder)holder ;
+            charactersViewHolder.bind(results.get(position), listener);
+            ListOfCarachtersDTO.Result result = results.get(position);
+            charactersViewHolder.characterName.setText(result.getName());
 
 //        Glide.with(context).load(results.get(position).getThumbnail().getPath()+"."+results.get(position).getThumbnail().getExtension()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).crossFade().centerCrop().into(holder.characterImage);
 
-        Glide.with(context).load(results.get(position).getThumbnail().getPath()+"."+results.get(position).getThumbnail().getExtension()).asBitmap().fitCenter().centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).into(new SimpleTarget<Bitmap>() {
+        Glide.with(context).load(results.get(position).getThumbnail().getPath() + "." + results.get(position).getThumbnail().getExtension()).asBitmap().fitCenter().centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(final Bitmap bitmap, GlideAnimation glideAnimation) {
-                holder.characterImage.setImageBitmap(bitmap); // Possibly runOnUiThread()
+                charactersViewHolder.characterImage.setImageBitmap(bitmap); // Possibly runOnUiThread()
                 Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
                     @Override
                     public void onGenerated(Palette palette) {
                         try {
 //                            holder.textBackground.setBackgroundColor(palette.getDarkVibrantSwatch().getRgb());
-                            holder.characterName.setTextColor(Color.WHITE);
+                            charactersViewHolder.characterName.setTextColor(Color.WHITE);
                         } catch (Exception e) {
                             e.printStackTrace();
-                            holder.characterName.setTextColor(Color.WHITE);
+                            charactersViewHolder.characterName.setTextColor(Color.WHITE);
                         }
                     }
                 });
             }
         });
-
-
+          }else if (holder instanceof LoadingViewHolder) {
+            LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
+            loadingViewHolder.progressBar.setIndeterminate(true);
+        }
 
     }
+
 
     @Override
     public int getItemCount() {
-        return results.size();
+        return results == null ? 0 : results.size();
     }
+
+    public void setLoaded() {
+        isLoading = false;
+    }
+
 }

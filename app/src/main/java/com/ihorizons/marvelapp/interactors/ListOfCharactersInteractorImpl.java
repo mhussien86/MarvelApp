@@ -7,7 +7,6 @@ import com.ihorizons.marvelapp.dtos.ListOfCarachtersDTO;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.Timestamp;
 import java.util.Date;
 
 import rx.Observable;
@@ -38,6 +37,43 @@ public class ListOfCharactersInteractorImpl implements IListOfCharactersInteract
     }
 
     @Override
+    public void loadMoreMarvelCharcters(int next, final OnMoreCharactersFetchedListener onMoreCharactersFetchedListener) {
+        try {
+            hashKey =  generateMD5Hash(timeStamp,secretKey, publicKey);
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        Observable<ListOfCarachtersDTO> observable = listOfCharactersAPI.getAllCharacters(timeStamp ,publicKey,hashKey ,"10", ""+next);
+
+        mCompositeSubscription.add(observable
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ListOfCarachtersDTO>() {
+                    @Override
+                    public void onNext(ListOfCarachtersDTO listOfCarachtersDTO) {
+
+                        onMoreCharactersFetchedListener.onMoreSuccess(listOfCarachtersDTO);
+                    }
+
+                    @Override
+                    public void onCompleted() {
+
+
+                    }
+
+                    @Override
+                    public void onError(final Throwable error) {
+
+                        onMoreCharactersFetchedListener.onMoreError(""+error.getLocalizedMessage());
+
+                    }
+                }));
+
+    }
+
+    @Override
     public void getAllMarvelCharacters(final OnAllCharactersFetchedListener onAllCharactersFetchedListener) {
 
 
@@ -48,7 +84,7 @@ public class ListOfCharactersInteractorImpl implements IListOfCharactersInteract
             e.printStackTrace();
         }
 
-        Observable<ListOfCarachtersDTO> observable = listOfCharactersAPI.getAllCharacters(timeStamp ,publicKey,hashKey ,"5");
+        Observable<ListOfCarachtersDTO> observable = listOfCharactersAPI.getAllCharacters(timeStamp ,publicKey,hashKey ,"10", "");
 
         mCompositeSubscription.add(observable
                 .subscribeOn(Schedulers.newThread())

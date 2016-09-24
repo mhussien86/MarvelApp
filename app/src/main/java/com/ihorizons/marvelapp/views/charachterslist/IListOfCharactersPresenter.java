@@ -11,6 +11,5 @@ public interface IListOfCharactersPresenter {
     void onDestroy();
 
 
-
-
+    void getMoreMarvelCharacters(int next);
 }

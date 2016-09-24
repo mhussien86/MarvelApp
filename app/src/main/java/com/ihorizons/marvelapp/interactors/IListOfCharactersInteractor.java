@@ -7,7 +7,9 @@ import com.ihorizons.marvelapp.dtos.ListOfCarachtersDTO;
  */
 public interface IListOfCharactersInteractor {
 
-     interface OnAllCharactersFetchedListener {
+    void loadMoreMarvelCharcters(int next, OnMoreCharactersFetchedListener onMoreCharactersFetchedListener);
+
+    interface OnAllCharactersFetchedListener {
 
         void onSuccess(ListOfCarachtersDTO listOfCarachtersDTO);
         void onError(String errorMessage);
@@ -15,6 +17,13 @@ public interface IListOfCharactersInteractor {
 
     }
 
+    interface OnMoreCharactersFetchedListener {
+
+        void onMoreSuccess(ListOfCarachtersDTO listOfCarachtersDTO);
+        void onMoreError(String errorMessage);
+
+
+    }
     void getAllMarvelCharacters(OnAllCharactersFetchedListener onAllCharactersFetchedListener);
 
     void unSubscribeAll();

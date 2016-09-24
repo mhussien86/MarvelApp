@@ -238,13 +238,13 @@ public class ListOfCarachtersDTO {
     public class Data {
 
 
-        private String offset;
+        private int offset;
 
-        private String limit;
+        private int limit;
 
-        private String total;
+        private int total;
 
-        private String count;
+        private int count;
 
         private List<Result> results = new ArrayList<Result>();
 
@@ -253,7 +253,7 @@ public class ListOfCarachtersDTO {
          * @return
          * The offset
          */
-        public String getOffset() {
+        public int getOffset() {
             return offset;
         }
 
@@ -262,7 +262,7 @@ public class ListOfCarachtersDTO {
          * @param offset
          * The offset
          */
-        public void setOffset(String offset) {
+        public void setOffset(int offset) {
             this.offset = offset;
         }
 
@@ -271,7 +271,7 @@ public class ListOfCarachtersDTO {
          * @return
          * The limit
          */
-        public String getLimit() {
+        public int getLimit() {
             return limit;
         }
 
@@ -280,7 +280,7 @@ public class ListOfCarachtersDTO {
          * @param limit
          * The limit
          */
-        public void setLimit(String limit) {
+        public void setLimit(int limit) {
             this.limit = limit;
         }
 
@@ -289,7 +289,7 @@ public class ListOfCarachtersDTO {
          * @return
          * The total
          */
-        public String getTotal() {
+        public int getTotal() {
             return total;
         }
 
@@ -298,7 +298,7 @@ public class ListOfCarachtersDTO {
          * @param total
          * The total
          */
-        public void setTotal(String total) {
+        public void setTotal(int total) {
             this.total = total;
         }
 
@@ -307,7 +307,7 @@ public class ListOfCarachtersDTO {
          * @return
          * The count
          */
-        public String getCount() {
+        public int getCount() {
             return count;
         }
 
@@ -316,7 +316,7 @@ public class ListOfCarachtersDTO {
          * @param count
          * The count
          */
-        public void setCount(String count) {
+        public void setCount(int count) {
             this.count = count;
         }
 
