@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
     public class ServiceGenerator {
 
-    public static final String API_BASE_URL = "http://gateway.marvel.com:80/";
+    public static final String API_BASE_URL = "http://gateway.marvel.com/";
 
     OkHttpClient.Builder httpClient;
     Retrofit.Builder builder;

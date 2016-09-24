@@ -14,12 +14,17 @@ public class ListOfCharactersActivity extends BaseActivity {
 
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.common_activity);
 
-        startFragment();
+        if (savedInstanceState == null) {
+
+            startFragment();
+        }
 
     }
+
 
 
     private void startFragment() {

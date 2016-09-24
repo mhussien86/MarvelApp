@@ -2,6 +2,7 @@ package com.ihorizons.marvelapp.views.charachterslist;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,8 +25,11 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
 
     IListOfCharactersPresenter listOfCharactersPresenter ;
 
-    @Bind(R.id.recycler_view)
-    RecyclerView mRecyclerView ;
+    @Bind(R.id.layout_loading)
+    View mLoadingLayout ;
+
+//    @Bind(R.id.recycler_view)
+//    RecyclerView mRecyclerView ;
 
     @Nullable
     @Override
@@ -33,6 +37,7 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
 
         mRootView = inflater.inflate(R.layout.characters_list_fragment,container,false);
 
+        listOfCharactersPresenter = new ListOfCharactersPresenterImpl(this);
         listOfCharactersPresenter.getMarvelCharactersList();
 
         return mRootView;
@@ -43,8 +48,8 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
+//        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+//        mRecyclerView.setLayoutManager(mLayoutManager);
 
 
     }
@@ -52,20 +57,28 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
     @Override
     public void showLoading() {
 
+        if(mLoadingLayout !=null)
+        mLoadingLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
 
+        if(mLoadingLayout !=null)
+        mLoadingLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void showInternetConnectionError() {
 
+
+
     }
 
     @Override
     public void showError(String errorMessage) {
+
+        Snackbar.make(getView(),""+errorMessage,Snackbar.LENGTH_LONG).show();
 
     }
 
