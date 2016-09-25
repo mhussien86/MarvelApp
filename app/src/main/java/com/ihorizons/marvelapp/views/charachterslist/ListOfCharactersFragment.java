@@ -43,10 +43,7 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView ;
 
-
     int next = 0 ;
-    ListOfCarachtersDTO.Data listOfCarachtersDTO  ;
-
     List<ListOfCarachtersDTO.Result> resultList ;
     @Nullable
     @Override
@@ -79,25 +76,6 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
 
     }
 
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_search:
-                // Not implemented here
-                return false;
-            default:
-                break;
-        }
-//        searchView.setOnQueryTextListener(queryTextListener);
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void showLoading() {

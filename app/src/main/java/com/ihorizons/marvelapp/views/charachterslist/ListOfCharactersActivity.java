@@ -1,23 +1,16 @@
 package com.ihorizons.marvelapp.views.charachterslist;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ihorizons.marvelapp.R;
 import com.ihorizons.marvelapp.views.BaseActivity;
+import com.ihorizons.marvelapp.views.searchfeature.SearchResultsActivity;
 
 /**
  * Created by mohamed on 23/09/16.
