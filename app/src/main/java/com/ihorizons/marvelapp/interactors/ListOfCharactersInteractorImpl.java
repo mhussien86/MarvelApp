@@ -115,6 +115,80 @@ public class ListOfCharactersInteractorImpl implements IListOfCharactersInteract
     }
 
     @Override
+    public void getSearchResultForMarvelCharacters(String name, final OnAllCharactersFetchedListener onAllCharactersFetchedListener) {
+
+        try {
+            hashKey =  generateMD5Hash(timeStamp,secretKey, publicKey);
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        Observable<ListOfCarachtersDTO> observable = listOfCharactersAPI.getAllCharactersStartsWith(timeStamp ,publicKey,hashKey ,"10", "", name);
+
+        mCompositeSubscription.add(observable
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ListOfCarachtersDTO>() {
+                    @Override
+                    public void onNext(ListOfCarachtersDTO listOfCarachtersDTO) {
+
+                        onAllCharactersFetchedListener.onSuccess(listOfCarachtersDTO);
+                    }
+
+                    @Override
+                    public void onCompleted() {
+
+
+                    }
+
+                    @Override
+                    public void onError(final Throwable error) {
+
+                        onAllCharactersFetchedListener.onError(""+error.getLocalizedMessage());
+
+                    }
+                }));
+    }
+
+    @Override
+    public void getMoreSearchResultForMarvelCharacters(int next, String name, final OnMoreCharactersFetchedListener onMoreCharactersFetchedListener) {
+
+        try {
+            hashKey =  generateMD5Hash(timeStamp,secretKey, publicKey);
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        Observable<ListOfCarachtersDTO> observable = listOfCharactersAPI.getAllCharactersStartsWith(timeStamp ,publicKey,hashKey ,"10", ""+next,name);
+
+        mCompositeSubscription.add(observable
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ListOfCarachtersDTO>() {
+                    @Override
+                    public void onNext(ListOfCarachtersDTO listOfCarachtersDTO) {
+
+                        onMoreCharactersFetchedListener.onMoreSuccess(listOfCarachtersDTO);
+                    }
+
+                    @Override
+                    public void onCompleted() {
+
+
+                    }
+
+                    @Override
+                    public void onError(final Throwable error) {
+
+                        onMoreCharactersFetchedListener.onMoreError(""+error.getLocalizedMessage());
+
+                    }
+                }));
+    }
+
+    @Override
     public void unSubscribeAll() {
         if(null !=mCompositeSubscription && mCompositeSubscription.hasSubscriptions()) {
             mCompositeSubscription.unsubscribe();

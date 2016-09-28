@@ -1,4 +1,4 @@
-package com.ihorizons.marvelapp.views.charachterslist;
+package com.ihorizons.marvelapp.views.searchfeature;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,19 +9,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.ihorizons.marvelapp.R;
 import com.ihorizons.marvelapp.dtos.ListOfCarachtersDTO;
+import com.ihorizons.marvelapp.views.charachterslist.OnLoadMoreListener;
 
 import java.util.List;
 
 /**
  * Created by mohamed on 24/09/16.
  */
-public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SearchCharactersListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     private List<ListOfCarachtersDTO.Result> results ;
@@ -33,13 +35,13 @@ public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private final int VIEW_TYPE_LOADING = 1;
 
     private boolean isLoading;
-    private int visibleThreshold ;
+    private int visibleThreshold = 5 ;
     private int lastVisibleItem, totalItemCount;
     public interface OnItemClickListener {
         void onItemClick(ListOfCarachtersDTO.Result result);
     }
 
-    public CharactersListAdapter (List<ListOfCarachtersDTO.Result> results, OnItemClickListener listener, Context context , RecyclerView mRecyclerView){
+    public SearchCharactersListAdapter(List<ListOfCarachtersDTO.Result> results, OnItemClickListener listener, Context context , RecyclerView mRecyclerView){
         this.results = results ;
         this.listener = listener ;
         this.context = context ;
@@ -51,7 +53,7 @@ public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 super.onScrolled(recyclerView, dx, dy);
 
                 totalItemCount = linearLayoutManager.getItemCount();
-                visibleThreshold = linearLayoutManager.getChildCount();
+//                visibleThreshold = linearLayoutManager.getChildCount();
                 lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
 
 
@@ -79,7 +81,7 @@ public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         RecyclerView.ViewHolder vh;
         if (viewType == VIEW_TYPE_ITEM) {
-            View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.character_list_item, parent, false);
+            View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_result_character_list_item, parent, false);
             vh = new CharactersViewHolder(listItem);
 
         }else{

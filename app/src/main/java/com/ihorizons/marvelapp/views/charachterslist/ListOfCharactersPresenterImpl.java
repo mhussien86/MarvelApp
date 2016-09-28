@@ -3,6 +3,7 @@ package com.ihorizons.marvelapp.views.charachterslist;
 import com.ihorizons.marvelapp.dtos.ListOfCarachtersDTO;
 import com.ihorizons.marvelapp.interactors.IListOfCharactersInteractor;
 import com.ihorizons.marvelapp.interactors.ListOfCharactersInteractorImpl;
+import com.ihorizons.marvelapp.views.searchfeature.SearchResultView;
 
 /**
  * Created by mohamed on 24/09/16.
@@ -13,11 +14,14 @@ public class ListOfCharactersPresenterImpl implements IListOfCharactersPresenter
     private IListOfCharactersView listOfCharactersView ;
     IListOfCharactersInteractor listOfCharactersInteractor ;
 
+    private SearchResultView searchResultView ;
 
     public ListOfCharactersPresenterImpl (IListOfCharactersView listOfCharactersView){
         this.listOfCharactersView = listOfCharactersView ;
         listOfCharactersInteractor = new ListOfCharactersInteractorImpl();
     }
+
+
     @Override
     public void getMarvelCharactersList() {
 

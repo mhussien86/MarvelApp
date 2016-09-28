@@ -24,8 +24,12 @@ public interface IListOfCharactersInteractor {
 
 
     }
+
     void getAllMarvelCharacters(OnAllCharactersFetchedListener onAllCharactersFetchedListener);
 
+
+    void getSearchResultForMarvelCharacters(String name , OnAllCharactersFetchedListener onAllCharactersFetchedListener);
+    void getMoreSearchResultForMarvelCharacters(int next , String name , OnMoreCharactersFetchedListener onMoreCharactersFetchedListener);
     void unSubscribeAll();
 
 
