@@ -1,7 +1,5 @@
 package com.ihorizons.marvelapp.views.searchfeature;
 
-import android.app.ProgressDialog;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -16,13 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
-
 import com.ihorizons.marvelapp.R;
 import com.ihorizons.marvelapp.dtos.ListOfCarachtersDTO;
 import com.ihorizons.marvelapp.views.BaseFragment;
 import com.ihorizons.marvelapp.views.charachterslist.*;
-import com.ihorizons.marvelapp.views.charachterslist.CharactersListAdapter;
 
 import java.util.List;
 
@@ -173,14 +168,8 @@ public class SearchResultFragment extends BaseFragment implements SearchResultVi
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-                if(!searchEditText.getText().toString().isEmpty() ){
-                    searchResultPresenter.getSearchCharactersList(editable.toString());
+                if(!searchEditText.getText().toString().isEmpty() && charSequence.toString().trim().length()>0){
+                    searchResultPresenter.getSearchCharactersList(charSequence.toString().trim());
                     clearButton.setVisibility(View.VISIBLE);
                     clearButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -191,6 +180,12 @@ public class SearchResultFragment extends BaseFragment implements SearchResultVi
                 }else{
                     clearButton.setVisibility(View.GONE);
                 }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+
 
             }
         });
