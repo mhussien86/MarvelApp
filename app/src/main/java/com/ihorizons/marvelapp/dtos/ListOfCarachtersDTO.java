@@ -1,27 +1,31 @@
 package com.ihorizons.marvelapp.dtos;
 
+import org.parceler.Parcel;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by mohamed on 24/09/16.
  */
+
+@Parcel
 public class ListOfCarachtersDTO {
 
 
-        private String code;
+        public String code;
 
-        private String status;
+        public String status;
 
-        private String copyright;
+        public String copyright;
 
-        private String attributionText;
+        public String attributionText;
 
-        private String attributionHTML;
+        public String attributionHTML;
 
-        private Data data;
+        public Data data;
 
-        private String etag;
+        public String etag;
 
         /**
          *
@@ -150,16 +154,17 @@ public class ListOfCarachtersDTO {
         }
 
 
-     public class Comics {
+    @Parcel
+     public static class Comics {
 
 
-        private String available;
+        public String available;
 
-        private String returned;
+        public String returned;
 
-        private String collectionURI;
+        public String collectionURI;
 
-        private List<Item> items = new ArrayList<Item>();
+        public List<Item> items = new ArrayList<Item>();
 
         /**
          *
@@ -235,18 +240,19 @@ public class ListOfCarachtersDTO {
 
     }
 
-    public class Data {
+    @Parcel
+    public static class Data {
 
 
-        private int offset;
+        public int offset;
 
-        private int limit;
+        public int limit;
 
-        private int total;
+        public int total;
 
-        private int count;
+        public int count;
 
-        private List<Result> results = new ArrayList<Result>();
+        public List<Result> results = new ArrayList<Result>();
 
         /**
          *
@@ -340,15 +346,16 @@ public class ListOfCarachtersDTO {
 
     }
 
-    public class Events {
+    @Parcel
+    public static class Events {
 
-        private String available;
+        public String available;
 
-        private String returned;
+        public String returned;
 
-        private String collectionURI;
+        public String collectionURI;
 
-        private List<Item__> items = new ArrayList<Item__>();
+        public List<Item__> items = new ArrayList<Item__>();
 
         /**
          *
@@ -424,11 +431,12 @@ public class ListOfCarachtersDTO {
 
     }
 
-    public class Item {
+    @Parcel
+    public static class Item {
 
-        private String resourceURI;
+        public String resourceURI;
 
-        private String name;
+        public String name;
 
         /**
          *
@@ -468,13 +476,14 @@ public class ListOfCarachtersDTO {
 
     }
 
-    public class Item_ {
+    @Parcel
+    public static class Item_ {
 
-        private String resourceURI;
+        public String resourceURI;
 
-        private String name;
+        public String name;
 
-        private String type;
+        public String type;
 
         /**
          *
@@ -532,56 +541,13 @@ public class ListOfCarachtersDTO {
 
     }
 
-    public class Item__ {
+    @Parcel
+    public static class Item__ {
 
 
-        private String resourceURI;
+        public String resourceURI;
 
-        private String name;
-
-        /**
-         *
-         * @return
-         * The resourceURI
-         */
-        public String getResourceURI() {
-            return resourceURI;
-        }
-
-        /**
-         *
-         * @param resourceURI
-         * The resourceURI
-         */
-        public void setResourceURI(String resourceURI) {
-            this.resourceURI = resourceURI;
-        }
-
-        /**
-         *
-         * @return
-         * The name
-         */
-        public String getName() {
-            return name;
-        }
-
-        /**
-         *
-         * @param name
-         * The name
-         */
-        public void setName(String name) {
-            this.name = name;
-        }
-
-    }
-
-    public class Item___ {
-
-        private String resourceURI;
-
-        private String name;
+        public String name;
 
         /**
          *
@@ -621,30 +587,76 @@ public class ListOfCarachtersDTO {
 
     }
 
-    public class Result {
+    @Parcel
+    public static class Item___ {
+
+        public String resourceURI;
+
+        public String name;
+
+        /**
+         *
+         * @return
+         * The resourceURI
+         */
+        public String getResourceURI() {
+            return resourceURI;
+        }
+
+        /**
+         *
+         * @param resourceURI
+         * The resourceURI
+         */
+        public void setResourceURI(String resourceURI) {
+            this.resourceURI = resourceURI;
+        }
+
+        /**
+         *
+         * @return
+         * The name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         *
+         * @param name
+         * The name
+         */
+        public void setName(String name) {
+            this.name = name;
+        }
+
+    }
+
+    @Parcel
+    public static class Result {
 
 
-        private String id;
+        public String id;
 
-        private String name;
+        public String name;
 
-        private String description;
+        public String description;
 
-        private String modified;
+        public String modified;
 
-        private String resourceURI;
+        public String resourceURI;
 
-        private List<Url> urls = new ArrayList<Url>();
+        public List<Url> urls = new ArrayList<Url>();
 
-        private Thumbnail thumbnail;
+        public Thumbnail thumbnail;
 
-        private Comics comics;
+        public Comics comics;
 
-        private Stories stories;
+        public Stories stories;
 
-        private Events events;
+        public Events events;
 
-        private Series series;
+        public Series series;
 
         /**
          *
@@ -846,16 +858,17 @@ public class ListOfCarachtersDTO {
 
     }
 
-    public class Series {
+    @Parcel
+    public static class Series {
 
 
-        private String available;
+        public String available;
 
-        private String returned;
+        public String returned;
 
-        private String collectionURI;
+        public String collectionURI;
 
-        private List<Item___> items = new ArrayList<Item___>();
+        public List<Item___> items = new ArrayList<Item___>();
 
         /**
          *
@@ -931,15 +944,16 @@ public class ListOfCarachtersDTO {
 
     }
 
-    public class Stories {
+    @Parcel
+    public static class Stories {
 
-        private String available;
+        public String available;
 
-        private String returned;
+        public String returned;
 
-        private String collectionURI;
+        public String collectionURI;
 
-        private List<Item_> items = new ArrayList<Item_>();
+        public List<Item_> items = new ArrayList<Item_>();
 
         /**
          *
@@ -1015,12 +1029,13 @@ public class ListOfCarachtersDTO {
 
     }
 
-    public class Thumbnail {
+    @Parcel
+    public static class Thumbnail {
 
 
-        private String path;
+        public String path;
 
-        private String extension;
+        public String extension;
 
         /**
          *
@@ -1060,12 +1075,13 @@ public class ListOfCarachtersDTO {
 
     }
 
-    public class Url {
+    @Parcel
+    public static class Url {
 
 
-        private String type;
+        public String type;
 
-        private String url;
+        public String url;
 
         /**
          *

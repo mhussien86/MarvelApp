@@ -21,8 +21,14 @@
 
         <activity
             android:name=".views.searchfeature.SearchResultsActivity"
-            android:label="@string/app_name"
-            android:launchMode="singleTop">
+            android:label="@string/app_name">
+
+
+        </activity>
+
+        <activity
+            android:name=".views.characterdeatils.CharacterDetailsActivity"
+            android:label="@string/app_name">
 
 
         </activity>

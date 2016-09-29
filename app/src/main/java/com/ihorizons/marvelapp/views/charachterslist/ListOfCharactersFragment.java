@@ -2,6 +2,7 @@ package com.ihorizons.marvelapp.views.charachterslist;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -19,6 +20,10 @@ import android.view.ViewGroup;
 import com.ihorizons.marvelapp.R;
 import com.ihorizons.marvelapp.dtos.ListOfCarachtersDTO;
 import com.ihorizons.marvelapp.views.BaseFragment;
+import com.ihorizons.marvelapp.views.UIConstants;
+import com.ihorizons.marvelapp.views.characterdeatils.CharacterDetailsActivity;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -109,6 +114,10 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
             public void onItemClick(ListOfCarachtersDTO.Result result) {
 
 
+                Intent intent = new Intent(getActivity(), CharacterDetailsActivity.class);
+                intent.putExtra(UIConstants.CHARACTER_EXTRAS, Parcels.wrap(result));
+                startActivity(intent);
+
 
             }
         },getContext(),mRecyclerView);
@@ -124,6 +133,7 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
 
             }
         });
+
     }
 
     @Override
