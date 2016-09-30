@@ -1,5 +1,6 @@
 package com.ihorizons.marvelapp.views.searchfeature;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -14,10 +15,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import com.ihorizons.marvelapp.R;
 import com.ihorizons.marvelapp.dtos.ListOfCarachtersDTO;
 import com.ihorizons.marvelapp.views.BaseFragment;
+import com.ihorizons.marvelapp.views.UIConstants;
 import com.ihorizons.marvelapp.views.charachterslist.*;
+import com.ihorizons.marvelapp.views.characterdeatils.CharacterDetailsActivity;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -109,8 +117,10 @@ public class SearchResultFragment extends BaseFragment implements SearchResultVi
             @Override
             public void onItemClick(ListOfCarachtersDTO.Result result) {
 
-
-
+                Intent intent = new Intent(getActivity(), CharacterDetailsActivity.class);
+                intent.putExtra(UIConstants.CHARACTER_EXTRAS, Parcels.wrap(result));
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         },getContext(),mRecyclerView);
 
@@ -120,8 +130,11 @@ public class SearchResultFragment extends BaseFragment implements SearchResultVi
             @Override
             public void onLoadMore() {
 
-                next += (listOfCarachtersDTO.getData().getLimit()+listOfCarachtersDTO.getData().getOffset()) ;
-                searchResultPresenter.getMoreSearchMarvelCharacters(next,""+searchEditText.getText().toString());
+                if(next <= listOfCarachtersDTO.getData().getTotal()){
+                    next += (listOfCarachtersDTO.getData().getLimit()+listOfCarachtersDTO.getData().getOffset()) ;
+                    searchResultPresenter.getMoreSearchMarvelCharacters(next,""+searchEditText.getText().toString());
+
+                }
 
             }
         });
@@ -168,8 +181,14 @@ public class SearchResultFragment extends BaseFragment implements SearchResultVi
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                if(!searchEditText.getText().toString().isEmpty() && charSequence.toString().trim().length()>0){
-                    searchResultPresenter.getSearchCharactersList(charSequence.toString().trim());
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                if(!searchEditText.getText().toString().isEmpty() && editable.toString().trim().length()>0){
+                    searchResultPresenter.getSearchCharactersList(editable.toString().trim());
                     clearButton.setVisibility(View.VISIBLE);
                     clearButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -180,12 +199,6 @@ public class SearchResultFragment extends BaseFragment implements SearchResultVi
                 }else{
                     clearButton.setVisibility(View.GONE);
                 }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-
 
             }
         });

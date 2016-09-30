@@ -19,7 +19,7 @@ public class CharacterDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.common_activity);
+        setContentView(R.layout.common_activity_without_toolbar);
         startFragment();
     }
 
@@ -30,4 +30,13 @@ public class CharacterDetailsActivity extends BaseActivity {
         fragmentManager.beginTransaction().replace(R.id.layCommonActivity, characterDetailsFragment).commit();
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        finish();
+
+    }
 }
