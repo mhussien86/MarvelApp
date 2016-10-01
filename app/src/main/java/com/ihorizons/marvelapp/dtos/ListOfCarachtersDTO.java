@@ -636,7 +636,7 @@ public class ListOfCarachtersDTO {
     public static class Result {
 
 
-        public String id;
+        public int id;
 
         public String name;
 
@@ -663,7 +663,7 @@ public class ListOfCarachtersDTO {
          * @return
          * The id
          */
-        public String getId() {
+        public int getId() {
             return id;
         }
 
@@ -672,7 +672,7 @@ public class ListOfCarachtersDTO {
          * @param id
          * The id
          */
-        public void setId(String id) {
+        public void setId(int id) {
             this.id = id;
         }
 

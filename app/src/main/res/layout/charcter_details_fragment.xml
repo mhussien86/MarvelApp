@@ -14,8 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="250dp"
@@ -70,7 +68,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/comics_layout">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -79,20 +78,33 @@
                 style="@style/TitleTextAppearance"
                 android:id="@+id/comics_title"/>
 
-            <android.support.v4.view.ViewPager
+<!--            <android.support.v4.view.ViewPager
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:id="@+id/comics_view_pager">
+                android:id="@+id/comics_view_pager"
+                android:layout_marginLeft="16dp">
 
-            </android.support.v4.view.ViewPager>
+            </android.support.v4.view.ViewPager>-->
 
-
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginLeft="16dp">
+                <LinearLayout
+                    android:id="@+id/comics_gallary"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="2dp"/>
+            </HorizontalScrollView>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/series_layout">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -101,11 +113,18 @@
                 android:text="@string/series_title"
                 style="@style/TitleTextAppearance"/>
 
-            <android.support.v4.view.ViewPager
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
-
-            </android.support.v4.view.ViewPager>
+                android:layout_height="110dp"
+                android:layout_marginLeft="16dp">
+                <LinearLayout
+                    android:id="@+id/series_gallary"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="2dp"/>
+            </HorizontalScrollView>
 
 
         </LinearLayout>
@@ -113,7 +132,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/stories_layout">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -121,11 +141,18 @@
                 android:text="@string/stories_title"
                 style="@style/TitleTextAppearance"/>
 
-            <android.support.v4.view.ViewPager
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
-
-            </android.support.v4.view.ViewPager>
+                android:layout_height="110dp"
+                android:layout_marginLeft="16dp">
+                <LinearLayout
+                    android:id="@+id/stories_gallary"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="2dp"/>
+            </HorizontalScrollView>
 
 
         </LinearLayout>
@@ -133,7 +160,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/events_layout">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -142,12 +170,18 @@
                 android:text="@string/events_title"
                 style="@style/TitleTextAppearance"/>
 
-            <android.support.v4.view.ViewPager
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:id="@+id/events_view_pager">
-
-            </android.support.v4.view.ViewPager>
+                android:layout_height="110dp"
+                android:layout_marginLeft="16dp">
+                <LinearLayout
+                    android:id="@+id/events_gallary"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="2dp"/>
+            </HorizontalScrollView>
 
 
         </LinearLayout>
@@ -155,7 +189,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:id="@+id/links_layout">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -164,9 +200,35 @@
                 android:text="@string/related_links"
                 style="@style/TitleTextAppearance"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/detail_link"
+                android:text="@string/detail"
+                style="@style/ContentTextAppearance"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"/>
 
-
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp" android:background="@color/colorPrimary"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/wiki_link"
+                android:text="@string/wiki"
+                style="@style/ContentTextAppearance"
+                android:layout_marginBottom="10dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp" android:background="@color/colorPrimary"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/comic_link"
+                android:text="@string/comic"
+                style="@style/ContentTextAppearance"
+                android:layout_marginBottom="30dp"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

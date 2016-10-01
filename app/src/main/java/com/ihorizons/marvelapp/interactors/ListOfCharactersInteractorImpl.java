@@ -1,9 +1,14 @@
 package com.ihorizons.marvelapp.interactors;
 
 import com.ihorizons.marvelapp.data.ServiceGenerator;
+import com.ihorizons.marvelapp.data.APIConstants;
 import com.ihorizons.marvelapp.data.apis.IListOfCharactersAPI;
 import com.ihorizons.marvelapp.dtos.ComicsResponse;
+import com.ihorizons.marvelapp.dtos.DetailsResponse;
+import com.ihorizons.marvelapp.dtos.EventsResponse;
 import com.ihorizons.marvelapp.dtos.ListOfCarachtersDTO;
+import com.ihorizons.marvelapp.dtos.SeriesResponse;
+import com.ihorizons.marvelapp.dtos.StoriesResponse;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -192,46 +197,52 @@ public class ListOfCharactersInteractorImpl implements IListOfCharactersInteract
     }
 
     @Override
-    public void loadCharacterDetails(int id) {
+    public void loadCharacterDetails(int id, final OnLoadCharacterDetails onLoadCharacterDetails) {
 
+        try {
+            hashKey =  generateMD5Hash(timeStamp,secretKey, publicKey);
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
         Observable fetchData = Observable.zip( // Fetch all deails together
-                listOfCharactersAPI.getCharacterComics(id, publicKey),
-                listOfCharactersAPI.getCharacterEvents(id, publicKey),
-                listOfCharactersAPI.getCharacterSeries(id, publicKey),
-                listOfCharactersAPI.getCharacterStories(id, publicKey),
+                listOfCharactersAPI.getCharacterComics(id,timeStamp, publicKey,hashKey),
+                listOfCharactersAPI.getCharacterEvents(id,timeStamp, publicKey,hashKey),
+                listOfCharactersAPI.getCharacterSeries(id,timeStamp, publicKey,hashKey),
+                listOfCharactersAPI.getCharacterStories(id, timeStamp, publicKey,hashKey),
 
-                new Func4() {
+
+        new Func4<ComicsResponse, EventsResponse, SeriesResponse, StoriesResponse, HashMap<String, DetailsResponse>>() {
+
+
                     @Override
-                    public Object call(Object o, Object o2, Object o3, Object o4) {
-                        return null;
+                    public HashMap call(final ComicsResponse comicsResponse,final EventsResponse eventsResponse,final SeriesResponse seriesResponse,final StoriesResponse storiesResponse) {
+
+                        HashMap detailsData = new HashMap();
+
+                        detailsData.put(APIConstants.COMICS_RESPONSE, comicsResponse);
+                        detailsData.put(APIConstants.EVENTS_RESPONSE, eventsResponse);
+                        detailsData.put(APIConstants.SERIES_RESPONSE, seriesResponse);
+                        detailsData.put(APIConstants.STORIES_RESPONSE, storiesResponse);
+
+
+                        return detailsData;
                     }
                 });
 
 
-        /*      new Func2<CurrentWeatherDataEnvelope, WeatherForecastListDataEnvelope, HashMap<String, WeatherDataEnvelope>>() {
-                    @Override
-                    public HashMap call(final CurrentWeatherDataEnvelope currentWeather,
-                                        final WeatherForecastListDataEnvelope weatherForecasts) {
-
-                        HashMap weatherData = new HashMap();
-                        weatherData.put(Constants.KEY_CURRENT_WEATHER, currentWeather);
-                        weatherData.put(Constants.KEY_WEATHER_FORECASTS, weatherForecasts);
-                        return weatherData;
-                    }
-
-                });*/
 
 
 
-
-     /*           mCompositeSubscription.add(fetchdata
+               mCompositeSubscription.add(fetchData
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Subscriber<HashMap<String, WeatherDataEnvelope>>() {
+                        .subscribe(new Subscriber<HashMap<String, DetailsResponse>>() {
                             @Override
-                            public void onNext(final HashMap<String, WeatherDataEnvelope> weatherData) {
+                            public void onNext(final HashMap<String, DetailsResponse> detailsData) {
 
-                                onRequestFinished.onDataFetchedSuccessful(weatherData);
+
+                                onLoadCharacterDetails.onLoadDetailsSuccess(detailsData);
                             }
 
                             @Override
@@ -243,11 +254,11 @@ public class ListOfCharactersInteractorImpl implements IListOfCharactersInteract
                             @Override
                             public void onError(final Throwable error) {
 
-                                onRequestFinished.onError();
+                                onLoadCharacterDetails.onLoadDeatilsError(""+error.getLocalizedMessage());
 
                             }
                         })
-                );*/
+                );
     }
 
     @Override

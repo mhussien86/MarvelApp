@@ -1,6 +1,11 @@
 package com.ihorizons.marvelapp.data.apis;
 
+import com.ihorizons.marvelapp.dtos.ComicsResponse;
+import com.ihorizons.marvelapp.dtos.DetailsResponse;
+import com.ihorizons.marvelapp.dtos.EventsResponse;
 import com.ihorizons.marvelapp.dtos.ListOfCarachtersDTO;
+import com.ihorizons.marvelapp.dtos.SeriesResponse;
+import com.ihorizons.marvelapp.dtos.StoriesResponse;
 
 import java.util.List;
 
@@ -24,18 +29,18 @@ public interface IListOfCharactersAPI {
 
 
     @GET("v1/public/characters/{characterId}/comics?")
-    Observable<ListOfCarachtersDTO> getCharacterComics(@Path("characterId") int characterId , @Query("apikey") String apikey);
+    Observable<ComicsResponse> getCharacterComics(@Path("characterId") int characterId , @Query("ts") String timestamp,@Query("apikey") String apikey,@Query("hash") String hash);
 
 
     @GET("v1/public/characters/{characterId}/events?")
-    Observable<ListOfCarachtersDTO> getCharacterEvents(@Path("characterId") int characterId , @Query("apikey") String apikey);
+    Observable<EventsResponse> getCharacterEvents(@Path("characterId") int characterId ,@Query("ts") String timestamp, @Query("apikey") String apikey,@Query("hash") String hash);
 
 
     @GET("v1/public/characters/{characterId}/series?")
-    Observable<ListOfCarachtersDTO> getCharacterSeries(@Path("characterId") int characterId , @Query("apikey") String apikey);
+    Observable<SeriesResponse> getCharacterSeries(@Path("characterId") int characterId ,@Query("ts") String timestamp, @Query("apikey") String apikey,@Query("hash") String hash);
 
 
     @GET("v1/public/characters/{characterId}/stories?")
-    Observable<ListOfCarachtersDTO> getCharacterStories(@Path("characterId") int characterId , @Query("apikey") String apikey);
+    Observable<StoriesResponse> getCharacterStories(@Path("characterId") int characterId ,@Query("ts") String timestamp, @Query("apikey") String apikey,@Query("hash") String hash);
 
 }

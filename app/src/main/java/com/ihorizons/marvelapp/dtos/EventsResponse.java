@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by mohamed on 01/10/16.
  */
-public class EventsResponse {
+public class EventsResponse extends DetailsResponse {
 
         private Integer code;
         private String status;
@@ -1128,4 +1128,3 @@ public class EventsResponse {
 
         }
     }
-}

@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by mohamed on 01/10/16.
  */
-public class StoriesResponse {
+public class StoriesResponse extends DetailsResponse {
 
 
         private Integer code;
@@ -827,7 +827,7 @@ public class StoriesResponse {
         private String resourceURI;
         private String type;
         private String modified;
-        private Object thumbnail;
+        private Thumbnail thumbnail;
         private Creators creators;
         private Characters characters;
         private Series series;
@@ -948,7 +948,7 @@ public class StoriesResponse {
          * @return
          * The thumbnail
          */
-        public Object getThumbnail() {
+        public Thumbnail getThumbnail() {
             return thumbnail;
         }
 
@@ -957,7 +957,7 @@ public class StoriesResponse {
          * @param thumbnail
          * The thumbnail
          */
-        public void setThumbnail(Object thumbnail) {
+        public void setThumbnail(Thumbnail thumbnail) {
             this.thumbnail = thumbnail;
         }
 
@@ -1071,7 +1071,49 @@ public class StoriesResponse {
 
 
     }
+    public class Thumbnail {
 
+        private String path;
+        private String extension;
+
+        /**
+         *
+         * @return
+         * The path
+         */
+        public String getPath() {
+            return path;
+        }
+
+        /**
+         *
+         * @param path
+         * The path
+         */
+        public void setPath(String path) {
+            this.path = path;
+        }
+
+        /**
+         *
+         * @return
+         * The extension
+         */
+        public String getExtension() {
+            return extension;
+        }
+
+        /**
+         *
+         * @param extension
+         * The extension
+         */
+        public void setExtension(String extension) {
+            this.extension = extension;
+        }
+
+
+    }
     public class Series {
 
         private Integer available;

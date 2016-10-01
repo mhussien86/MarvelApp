@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by mohamed on 01/10/16.
  */
-public class ComicsResponse {
+public class ComicsResponse extends DetailsResponse{
 
         private Integer code;
         private String status;

@@ -9,4 +9,8 @@
     <string name="series_title">Series</string>
     <string name="events_title">Events</string>
     <string name="related_links">Related links</string>
+    <string name="detail">DETAIL</string>
+    <string name="wiki">WIKI</string>
+    <string name="comic">COMICLINK</string>
+    <string name="no_description">No Description Avaliable</string>
 </resources>

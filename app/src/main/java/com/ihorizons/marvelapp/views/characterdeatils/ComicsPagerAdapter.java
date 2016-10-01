@@ -2,16 +2,20 @@ package com.ihorizons.marvelapp.views.characterdeatils;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ihorizons.marvelapp.R;
-import com.ihorizons.marvelapp.dtos.ListOfCarachtersDTO;
+import com.ihorizons.marvelapp.dtos.ComicsResponse;
+
+import java.util.List;
 
 /**
  * Created by mohamed on 29/09/16.
@@ -20,17 +24,20 @@ public class ComicsPagerAdapter extends PagerAdapter {
 
     Context mContext;
     LayoutInflater mLayoutInflater;
-
-    private ListOfCarachtersDTO.Result result ;
-    public ComicsPagerAdapter(Context context, ListOfCarachtersDTO.Result result) {
+    ViewPager viewPager ;
+    LinearLayout thumbnails ;
+    private List<ComicsResponse.Result> results ;
+    public ComicsPagerAdapter(Context context, List<ComicsResponse.Result> result, ViewPager viewPager, LinearLayout thumbnails) {
         mContext = context;
-        this.result = result ;
+        this.results = result ;
+        this.thumbnails = thumbnails ;
+        this.viewPager = viewPager ;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return result.getComics().getItems().size();
+        return results.size();
     }
 
     @Override
@@ -41,13 +48,27 @@ public class ComicsPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
-
-        ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-
-//        Glide.with(mContext).load(result.getComics().getItems().get(position).getResourceURI().getThumbnail().getPath()+"."+result.get(position).getThumbnail().getExtension()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).centerCrop().into(imageView);
-
-
         container.addView(itemView);
+
+//        ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
+
+        // Get the border size to show around each image
+        int borderSize = thumbnails.getPaddingTop();
+
+        // Get the size of the actual thumbnail image
+        int thumbnailSize = ((LinearLayout.LayoutParams)
+                viewPager.getLayoutParams()).bottomMargin - (borderSize*2);
+
+        // Set the thumbnail layout parameters. Adjust as required
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(thumbnailSize, thumbnailSize);
+        params.setMargins(0, 0, borderSize, 0);
+
+        final ImageView thumbView = new ImageView(mContext);
+        thumbView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        thumbView.setLayoutParams(params);
+        Glide.with(mContext).load(results.get(position).getImages().get(position).getPath()+"."+results.get(position).getImages().get(position).getExtension()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).into(thumbView);
+        thumbnails.addView(thumbView);
 
         return itemView;
     }
