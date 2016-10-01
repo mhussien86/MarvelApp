@@ -33,7 +33,7 @@ public class CharacterDetailsActivity extends BaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+        overridePendingTransition(R.anim.no_change, R.anim.slide_down);
         finish();
 
     }

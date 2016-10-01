@@ -37,6 +37,8 @@ public class CharacterDetailsFragment extends BaseFragment{
     @Bind(R.id.comics_view_pager)
     ViewPager comicsViewPager ;
 
+    @Bind(R.id.character_name)
+    TextView characterName ;
 
     @Bind(R.id.charachter_image)
     ImageView characterImage ;
@@ -45,7 +47,8 @@ public class CharacterDetailsFragment extends BaseFragment{
     TextView descriptionTextView ;
 
     @Bind(R.id.back_button)
-            ImageButton backButton ;
+    ImageButton backButton ;
+
     ComicsPagerAdapter comicsPagerAdapter ;
 
 
@@ -77,6 +80,7 @@ public class CharacterDetailsFragment extends BaseFragment{
             descriptionTextView.setText(""+result.getId());
             Glide.with(getContext()).load(result.getThumbnail().getPath()+"."+result.getThumbnail().getExtension()).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).into(characterImage);
 
+            characterName.setText(result.getName());
         }catch (Exception e){
 
             e.printStackTrace();

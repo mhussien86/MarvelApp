@@ -110,7 +110,7 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
                 Intent intent = new Intent(getActivity(), CharacterDetailsActivity.class);
                 intent.putExtra(UIConstants.CHARACTER_EXTRAS, Parcels.wrap(result));
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
+                getActivity().overridePendingTransition(R.anim.slide_up, R.anim.no_change);
 
 
             }

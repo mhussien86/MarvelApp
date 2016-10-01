@@ -208,6 +208,46 @@ public class ListOfCharactersInteractorImpl implements IListOfCharactersInteract
                 });
 
 
+        /*      new Func2<CurrentWeatherDataEnvelope, WeatherForecastListDataEnvelope, HashMap<String, WeatherDataEnvelope>>() {
+                    @Override
+                    public HashMap call(final CurrentWeatherDataEnvelope currentWeather,
+                                        final WeatherForecastListDataEnvelope weatherForecasts) {
+
+                        HashMap weatherData = new HashMap();
+                        weatherData.put(Constants.KEY_CURRENT_WEATHER, currentWeather);
+                        weatherData.put(Constants.KEY_WEATHER_FORECASTS, weatherForecasts);
+                        return weatherData;
+                    }
+
+                });*/
+
+
+
+
+     /*           mCompositeSubscription.add(fetchdata
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<HashMap<String, WeatherDataEnvelope>>() {
+                            @Override
+                            public void onNext(final HashMap<String, WeatherDataEnvelope> weatherData) {
+
+                                onRequestFinished.onDataFetchedSuccessful(weatherData);
+                            }
+
+                            @Override
+                            public void onCompleted() {
+
+
+                            }
+
+                            @Override
+                            public void onError(final Throwable error) {
+
+                                onRequestFinished.onError();
+
+                            }
+                        })
+                );*/
     }
 
     @Override
