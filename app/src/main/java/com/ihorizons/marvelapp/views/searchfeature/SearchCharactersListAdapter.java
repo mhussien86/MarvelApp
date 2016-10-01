@@ -35,7 +35,7 @@ public class SearchCharactersListAdapter extends RecyclerView.Adapter<RecyclerVi
     private final int VIEW_TYPE_LOADING = 1;
 
     private boolean isLoading;
-    private int visibleThreshold = 5 ;
+    private int visibleThreshold = 1 ;
     private int lastVisibleItem, totalItemCount;
     public interface OnItemClickListener {
         void onItemClick(ListOfCarachtersDTO.Result result);
@@ -53,7 +53,6 @@ public class SearchCharactersListAdapter extends RecyclerView.Adapter<RecyclerVi
                 super.onScrolled(recyclerView, dx, dy);
 
                 totalItemCount = linearLayoutManager.getItemCount();
-//                visibleThreshold = linearLayoutManager.getChildCount();
                 lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
 
 

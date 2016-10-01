@@ -1,13 +1,11 @@
 package com.ihorizons.marvelapp.views.characterdeatils;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 
 import com.ihorizons.marvelapp.R;
 import com.ihorizons.marvelapp.views.BaseActivity;
-import com.ihorizons.marvelapp.views.searchfeature.SearchResultFragment;
 
 /**
  * Created by mohamed on 24/09/16.
@@ -35,7 +33,7 @@ public class CharacterDetailsActivity extends BaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
         finish();
 
     }

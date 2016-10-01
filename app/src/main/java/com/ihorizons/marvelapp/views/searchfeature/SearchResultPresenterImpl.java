@@ -36,7 +36,6 @@ public class SearchResultPresenterImpl  implements SearchResultPresenter, IListO
     @Override
     public void getMoreSearchMarvelCharacters(int next, String name) {
 
-        searchResultView.showLoading();
         listOfCharactersInteractor.getMoreSearchResultForMarvelCharacters(next,name, this);
     }
 

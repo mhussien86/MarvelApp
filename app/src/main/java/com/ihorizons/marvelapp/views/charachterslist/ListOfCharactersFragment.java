@@ -1,19 +1,12 @@
 package com.ihorizons.marvelapp.views.charachterslist;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -109,7 +102,7 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
 
         resultList = listOfCarachtersDTO.getData().getResults();
 
-        charactersListAdapter = new CharactersListAdapter(listOfCarachtersDTO.getData().getResults(), new CharactersListAdapter.OnItemClickListener() {
+        charactersListAdapter = new CharactersListAdapter(resultList, new CharactersListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(ListOfCarachtersDTO.Result result) {
 
@@ -117,7 +110,7 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
                 Intent intent = new Intent(getActivity(), CharacterDetailsActivity.class);
                 intent.putExtra(UIConstants.CHARACTER_EXTRAS, Parcels.wrap(result));
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                getActivity().overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
 
 
             }
@@ -129,6 +122,10 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
             @Override
             public void onLoadMore() {
 
+
+                resultList.add(null);
+                charactersListAdapter.notifyItemInserted(resultList.size() - 1);
+
                 next += (listOfCarachtersDTO.getData().getLimit()+listOfCarachtersDTO.getData().getOffset()) ;
                 listOfCharactersPresenter.getMoreMarvelCharacters(next);
 
@@ -139,6 +136,10 @@ public class ListOfCharactersFragment extends BaseFragment implements IListOfCha
 
     @Override
     public void handleMoreItems(ListOfCarachtersDTO listOfCarachtersDTO) {
+
+
+        resultList.remove(resultList.size() - 1);
+        charactersListAdapter.notifyItemRemoved(resultList.size());
 
         resultList.addAll(listOfCarachtersDTO.getData().getResults());
         charactersListAdapter.notifyDataSetChanged();

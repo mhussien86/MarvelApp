@@ -33,7 +33,7 @@ public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private final int VIEW_TYPE_LOADING = 1;
 
     private boolean isLoading;
-    private int visibleThreshold ;
+    private int visibleThreshold = 1;
     private int lastVisibleItem, totalItemCount;
     public interface OnItemClickListener {
         void onItemClick(ListOfCarachtersDTO.Result result);
@@ -51,7 +51,6 @@ public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 super.onScrolled(recyclerView, dx, dy);
 
                 totalItemCount = linearLayoutManager.getItemCount();
-                visibleThreshold = linearLayoutManager.getChildCount();
                 lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
 
 
@@ -82,7 +81,7 @@ public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.character_list_item, parent, false);
             vh = new CharactersViewHolder(listItem);
 
-        }else{
+        }else {
             View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_loading_item, parent, false);
             vh = new LoadingViewHolder(view);
         }

@@ -15,8 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.ihorizons.marvelapp.R;
 import com.ihorizons.marvelapp.dtos.ListOfCarachtersDTO;
@@ -120,7 +118,7 @@ public class SearchResultFragment extends BaseFragment implements SearchResultVi
                 Intent intent = new Intent(getActivity(), CharacterDetailsActivity.class);
                 intent.putExtra(UIConstants.CHARACTER_EXTRAS, Parcels.wrap(result));
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                getActivity().overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
             }
         },getContext(),mRecyclerView);
 
@@ -131,6 +129,8 @@ public class SearchResultFragment extends BaseFragment implements SearchResultVi
             public void onLoadMore() {
 
                 if(next <= listOfCarachtersDTO.getData().getTotal()){
+                    resultList.add(null);
+                    charactersListAdapter.notifyItemInserted(resultList.size() - 1);
                     next += (listOfCarachtersDTO.getData().getLimit()+listOfCarachtersDTO.getData().getOffset()) ;
                     searchResultPresenter.getMoreSearchMarvelCharacters(next,""+searchEditText.getText().toString());
 
@@ -144,6 +144,9 @@ public class SearchResultFragment extends BaseFragment implements SearchResultVi
     @Override
     public void handleMoreSearchItems(ListOfCarachtersDTO listOfCarachtersDTO) {
 
+
+        resultList.remove(resultList.size() - 1);
+        charactersListAdapter.notifyItemRemoved(resultList.size());
 
         resultList.addAll(listOfCarachtersDTO.getData().getResults());
         charactersListAdapter.notifyDataSetChanged();
