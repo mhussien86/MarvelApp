@@ -37,4 +37,5 @@ public interface IListOfCharactersAPI {
 
     @GET("v1/public/characters/{characterId}/stories?")
     Observable<ListOfCarachtersDTO> getCharacterStories(@Path("characterId") int characterId , @Query("apikey") String apikey);
+
 }

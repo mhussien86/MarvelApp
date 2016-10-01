@@ -30,6 +30,7 @@ public interface IListOfCharactersInteractor {
 
     void getSearchResultForMarvelCharacters(String name , OnAllCharactersFetchedListener onAllCharactersFetchedListener);
     void getMoreSearchResultForMarvelCharacters(int next , String name , OnMoreCharactersFetchedListener onMoreCharactersFetchedListener);
+    void loadCharacterDetails(int id);
     void unSubscribeAll();
 
 

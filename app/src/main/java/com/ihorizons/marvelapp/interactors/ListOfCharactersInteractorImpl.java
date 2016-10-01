@@ -2,16 +2,19 @@ package com.ihorizons.marvelapp.interactors;
 
 import com.ihorizons.marvelapp.data.ServiceGenerator;
 import com.ihorizons.marvelapp.data.apis.IListOfCharactersAPI;
+import com.ihorizons.marvelapp.dtos.ComicsResponse;
 import com.ihorizons.marvelapp.dtos.ListOfCarachtersDTO;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.HashMap;
 
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func4;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
@@ -186,6 +189,25 @@ public class ListOfCharactersInteractorImpl implements IListOfCharactersInteract
 
                     }
                 }));
+    }
+
+    @Override
+    public void loadCharacterDetails(int id) {
+
+        Observable fetchData = Observable.zip( // Fetch all deails together
+                listOfCharactersAPI.getCharacterComics(id, publicKey),
+                listOfCharactersAPI.getCharacterEvents(id, publicKey),
+                listOfCharactersAPI.getCharacterSeries(id, publicKey),
+                listOfCharactersAPI.getCharacterStories(id, publicKey),
+
+                new Func4() {
+                    @Override
+                    public Object call(Object o, Object o2, Object o3, Object o4) {
+                        return null;
+                    }
+                });
+
+
     }
 
     @Override
