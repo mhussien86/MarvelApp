@@ -23,7 +23,7 @@ public class CharacterDetailsActivity extends BaseActivity {
 
     private void startFragment() {
 
-        CharacterDetailsFragment characterDetailsFragment = new CharacterDetailsFragment();
+        CharacterDetailsFragmentNew characterDetailsFragment = new CharacterDetailsFragmentNew();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.layCommonActivity, characterDetailsFragment).commit();
     }

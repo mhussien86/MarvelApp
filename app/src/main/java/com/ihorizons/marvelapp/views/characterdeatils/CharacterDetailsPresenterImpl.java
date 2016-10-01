@@ -29,6 +29,7 @@ public class CharacterDetailsPresenterImpl implements CharacterDetailsPresenter,
     public void getMarvelCharactersDetails(int id) {
 
 
+        characterDetailsView.showLoading();
         iListOfCharactersInteractor.loadCharacterDetails(id, this);
     }
 
@@ -42,6 +43,7 @@ public class CharacterDetailsPresenterImpl implements CharacterDetailsPresenter,
 
     @Override
     public void onLoadDetailsSuccess(HashMap<String, DetailsResponse> marvelCharactersDetails) {
+        characterDetailsView.hideLoading();
         characterDetailsView.setMarvelCharactersDetails(marvelCharactersDetails);
 
     }
@@ -50,6 +52,7 @@ public class CharacterDetailsPresenterImpl implements CharacterDetailsPresenter,
     public void onLoadDeatilsError(String errorMessage) {
 
 
+        characterDetailsView.hideLoading();
         characterDetailsView.showError(errorMessage);
 
 
