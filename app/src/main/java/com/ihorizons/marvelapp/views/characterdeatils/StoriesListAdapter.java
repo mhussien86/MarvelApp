@@ -46,7 +46,7 @@ public class StoriesListAdapter extends RecyclerView.Adapter<StoriesListAdapter.
     public void onBindViewHolder(MyViewHolder holder, int position) {
         StoriesResponse.Result result = results.get(position);
 
-        if(result.getThumbnail()!=null) {
+        if(result.getThumbnail().getPath().length()>0) {
             holder.bind(result, listener);
 
             holder.itemText.setText(result.getTitle());

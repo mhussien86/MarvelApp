@@ -49,7 +49,7 @@ public class EventsListAdapter extends RecyclerView.Adapter<EventsListAdapter.My
     public void onBindViewHolder(MyViewHolder holder, int position) {
         EventsResponse.Result result = results.get(position);
 
-        if(result.getThumbnail()!=null) {
+        if(result.getThumbnail().getPath().length()>0) {
             holder.bind(result, listener);
             holder.itemText.setText(result.getTitle());
             Glide.with(mContext).load(result.getThumbnail().getPath() + "." + result.getThumbnail().getExtension()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).into(holder.itemImage);
