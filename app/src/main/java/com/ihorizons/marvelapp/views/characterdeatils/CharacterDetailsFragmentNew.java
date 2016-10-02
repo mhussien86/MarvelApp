@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +27,11 @@ import com.ihorizons.marvelapp.dtos.SeriesResponse;
 import com.ihorizons.marvelapp.dtos.StoriesResponse;
 import com.ihorizons.marvelapp.views.BaseFragment;
 import com.ihorizons.marvelapp.views.UIConstants;
+import com.ihorizons.marvelapp.views.imagesgallery.ImagesGallreyActivity;
 
 import org.parceler.Parcels;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import butterknife.Bind;
@@ -223,7 +224,7 @@ public class CharacterDetailsFragmentNew extends BaseFragment implements Charact
     public void setMarvelCharactersDetails(HashMap<String, DetailsResponse> marvelCharactersDetails) {
 
 
-        ComicsResponse comicsResponse = (ComicsResponse)marvelCharactersDetails.get(APIConstants.COMICS_RESPONSE);
+        final ComicsResponse comicsResponse = (ComicsResponse)marvelCharactersDetails.get(APIConstants.COMICS_RESPONSE);
         EventsResponse eventsResponse = (EventsResponse)marvelCharactersDetails.get(APIConstants.EVENTS_RESPONSE);
         StoriesResponse storiesResponse = (StoriesResponse) marvelCharactersDetails.get(APIConstants.STORIES_RESPONSE);
         SeriesResponse seriesResponse = (SeriesResponse)marvelCharactersDetails.get(APIConstants.SERIES_RESPONSE);
@@ -235,7 +236,8 @@ public class CharacterDetailsFragmentNew extends BaseFragment implements Charact
 
                     Intent intent = new Intent(getActivity() , ImagesGallreyActivity.class);
 
-                    intent.putExtra(UIConstants.CHARACTER_EXTRAS, Parcels.wrap(result.getImages()));
+
+                    intent.putExtra(UIConstants.CHARACTER_EXTRAS, (Serializable) comicsResponse.getData().getResults());
 
                     getActivity().startActivity(intent);
 
@@ -252,6 +254,7 @@ public class CharacterDetailsFragmentNew extends BaseFragment implements Charact
             eventsListAdapter = new EventsListAdapter(eventsResponse.getData().getResults(), getContext(), new EventsListAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(EventsResponse.Result result) {
+
 
                 }
             });

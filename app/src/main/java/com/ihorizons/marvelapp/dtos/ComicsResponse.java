@@ -1,12 +1,13 @@
 package com.ihorizons.marvelapp.dtos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by mohamed on 01/10/16.
  */
-public class ComicsResponse extends DetailsResponse{
+public class ComicsResponse extends DetailsResponse implements Serializable {
 
         private Integer code;
         private String status;
@@ -117,7 +118,7 @@ public class ComicsResponse extends DetailsResponse{
 
 
 
-        public class Characters {
+        public class Characters implements Serializable{
 
             private Integer available;
             private String collectionURI;
@@ -186,7 +187,7 @@ public class ComicsResponse extends DetailsResponse{
 
 
 
-        public class Creators {
+        public class Creators implements Serializable{
 
             private Integer available;
             private String collectionURI;
@@ -253,7 +254,7 @@ public class ComicsResponse extends DetailsResponse{
 
         }
 
-        public class Data {
+        public class Data implements Serializable{
 
             private Integer offset;
             private Integer limit;
@@ -335,7 +336,7 @@ public class ComicsResponse extends DetailsResponse{
 
         }
 
-        public class Date {
+        public class Date  implements Serializable{
 
             private String type;
             private String date;
@@ -372,7 +373,7 @@ public class ComicsResponse extends DetailsResponse{
 
         }
 
-        public class Events {
+        public class Events  implements Serializable {
 
             private Integer available;
             private String collectionURI;
@@ -437,7 +438,7 @@ public class ComicsResponse extends DetailsResponse{
 
         }
 
-        public class Image {
+        public class Image implements Serializable{
 
             private String path;
             private String extension;
@@ -474,7 +475,7 @@ public class ComicsResponse extends DetailsResponse{
         }
 
 
-        public class Item {
+        public class Item  implements Serializable{
 
             private String resourceURI;
             private String name;
@@ -526,7 +527,7 @@ public class ComicsResponse extends DetailsResponse{
 
         }
 
-        public class Item_ {
+        public class Item_  implements Serializable{
 
             private String resourceURI;
             private String name;
@@ -562,7 +563,7 @@ public class ComicsResponse extends DetailsResponse{
 
         }
 
-        public class Item__ {
+        public class Item__  implements Serializable{
 
             private String resourceURI;
             private String name;
@@ -613,7 +614,7 @@ public class ComicsResponse extends DetailsResponse{
         }
 
 
-        public class Item___ {
+        public class Item___  implements Serializable{
 
             private String resourceURI;
             private String name;
@@ -649,7 +650,7 @@ public class ComicsResponse extends DetailsResponse{
 
         }
 
-        public class Price {
+        public class Price  implements Serializable{
 
             private String type;
             private Double price;
@@ -686,7 +687,7 @@ public class ComicsResponse extends DetailsResponse{
 
         }
 
-        public class Result {
+        public class Result implements Serializable{
 
             private Integer id;
             private Integer digitalId;
@@ -1127,7 +1128,7 @@ public class ComicsResponse extends DetailsResponse{
 
         }
 
-        public class Series {
+        public class Series  implements Serializable{
 
             private String resourceURI;
             private String name;
@@ -1163,7 +1164,7 @@ public class ComicsResponse extends DetailsResponse{
 
         }
 
-        public class Stories {
+        public class Stories  implements Serializable{
 
             private Integer available;
             private String collectionURI;
@@ -1228,7 +1229,7 @@ public class ComicsResponse extends DetailsResponse{
 
         }
 
-        public class TextObject {
+        public class TextObject implements Serializable{
 
             private String type;
             private String language;
@@ -1280,7 +1281,7 @@ public class ComicsResponse extends DetailsResponse{
 
         }
 
-        public class Thumbnail {
+        public class Thumbnail  implements Serializable {
 
             private String path;
             private String extension;
@@ -1317,7 +1318,7 @@ public class ComicsResponse extends DetailsResponse{
 
         }
 
-        public class Url {
+        public class Url  implements Serializable{
 
             private String type;
             private String url;
@@ -1354,7 +1355,7 @@ public class ComicsResponse extends DetailsResponse{
         }
 
 
-        public class Variant {
+        public class Variant  implements Serializable{
 
             private String resourceURI;
             private String name;

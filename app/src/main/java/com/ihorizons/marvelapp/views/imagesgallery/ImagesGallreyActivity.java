@@ -1,4 +1,4 @@
-package com.ihorizons.marvelapp.views.characterdeatils;
+package com.ihorizons.marvelapp.views.imagesgallery;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 
 import com.ihorizons.marvelapp.R;
 import com.ihorizons.marvelapp.views.BaseActivity;
+import com.ihorizons.marvelapp.views.imagesgallery.ImagesGalleryFragment;
 
 /**
  * Created by mohamed on 02/10/16.
