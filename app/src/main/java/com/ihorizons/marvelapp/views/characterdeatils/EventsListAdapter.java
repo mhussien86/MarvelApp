@@ -72,8 +72,12 @@ public class EventsListAdapter extends RecyclerView.Adapter<EventsListAdapter.My
             itemText = (TextView) view.findViewById(R.id.item_text);
         }
 
-        public void bind(EventsResponse.Result result, OnItemClickListener listener) {
-            listener.onItemClick(result);
-        }
+        public void bind(final EventsResponse.Result result, final OnItemClickListener listener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemClick(result);
+                }
+            });        }
     }
 }

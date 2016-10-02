@@ -255,7 +255,12 @@ public class CharacterDetailsFragmentNew extends BaseFragment implements Charact
                 @Override
                 public void onItemClick(EventsResponse.Result result) {
 
+                    Intent intent = new Intent(getActivity() , ImagesGallreyActivity.class);
 
+
+                    intent.putExtra(UIConstants.CHARACTER_EXTRAS, (Serializable) comicsResponse.getData().getResults());
+
+                    getActivity().startActivity(intent);
                 }
             });
 
@@ -268,7 +273,11 @@ public class CharacterDetailsFragmentNew extends BaseFragment implements Charact
             storiesListAdapter = new StoriesListAdapter(storiesResponse.getData().getResults(), getContext(), new StoriesListAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(StoriesResponse.Result result) {
+                    Intent intent = new Intent(getActivity() , ImagesGallreyActivity.class);
 
+                    intent.putExtra(UIConstants.CHARACTER_EXTRAS, (Serializable) comicsResponse.getData().getResults());
+
+                    getActivity().startActivity(intent);
                 }
             });
             storiesGallery.setAdapter(storiesListAdapter);
@@ -282,7 +291,11 @@ public class CharacterDetailsFragmentNew extends BaseFragment implements Charact
             seriesListAdapter = new SeriesListAdapter(seriesResponse.getData().getResults(), getContext(), new SeriesListAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(SeriesResponse.Result result) {
+                    Intent intent = new Intent(getActivity() , ImagesGallreyActivity.class);
 
+                    intent.putExtra(UIConstants.CHARACTER_EXTRAS, (Serializable) comicsResponse.getData().getResults());
+
+                    getActivity().startActivity(intent);
                 }
             });
             seriesGallery.setAdapter(seriesListAdapter);

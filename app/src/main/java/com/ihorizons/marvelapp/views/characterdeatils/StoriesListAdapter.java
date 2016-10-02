@@ -70,9 +70,13 @@ public class StoriesListAdapter extends RecyclerView.Adapter<StoriesListAdapter.
             itemText = (TextView) view.findViewById(R.id.item_text);
         }
 
-        public void bind(StoriesResponse.Result result, OnItemClickListener listener) {
+        public void bind(final StoriesResponse.Result result, final OnItemClickListener listener) {
 
-            listener.onItemClick(result);
-        }
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemClick(result);
+                }
+            });        }
     }
 }
