@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,22 +16,24 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ihorizons.marvelapp.R;
 import com.ihorizons.marvelapp.dtos.ComicsResponse;
+import com.ihorizons.marvelapp.dtos.SeriesResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by mohamed on 29/09/16.
  */
-public class ImagesPagerAdapter extends PagerAdapter {
+public class SeriesImagesPagerAdapter extends PagerAdapter {
 
     Context mContext;
     LayoutInflater mLayoutInflater;
-    private  List<ComicsResponse.Result>  results ;
+    private  List<SeriesResponse.Result>  results ;
 
-    public ImagesPagerAdapter(Context context,  List<ComicsResponse.Result> result) {
+
+    public SeriesImagesPagerAdapter(Context context, List<SeriesResponse.Result> filteredResult) {
+
         mContext = context;
-        this.results = result ;
+        this.results = filteredResult ;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -51,8 +52,8 @@ public class ImagesPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
-        ComicsResponse.Result result = results.get(position);
-        if(result.getImages().size() > 0 && result.getImages().get(0).getPath().length()>0) {
+        SeriesResponse.Result result = results.get(position);
+        if(result.getThumbnail().getPath().length()>0) {
             ImageView itemImage = (ImageView) itemView.findViewById(R.id.imageView);
             TextView imageText = (TextView) itemView.findViewById(R.id.item_text);
             TextView imageTextTotal = (TextView) itemView.findViewById(R.id.item_text_total);
@@ -66,7 +67,7 @@ public class ImagesPagerAdapter extends PagerAdapter {
                 }
             });
             imageText.setText(result.getTitle());
-            Glide.with(mContext).load(result.getImages().get(0).getPath() + "." + result.getImages().get(0).getExtension()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).into(itemImage);
+            Glide.with(mContext).load(result.getThumbnail().getPath() + "." + result.getThumbnail().getExtension()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).into(itemImage);
 
             ((ViewPager) container).addView(itemView);
             return itemView;

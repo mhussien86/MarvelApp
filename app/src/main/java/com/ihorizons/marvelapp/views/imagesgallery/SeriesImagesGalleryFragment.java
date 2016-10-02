@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.ihorizons.marvelapp.R;
 import com.ihorizons.marvelapp.dtos.ComicsResponse;
+import com.ihorizons.marvelapp.dtos.SeriesResponse;
 import com.ihorizons.marvelapp.views.BaseFragment;
 import com.ihorizons.marvelapp.views.UIConstants;
 
@@ -21,18 +22,18 @@ import butterknife.ButterKnife;
 /**
  * Created by mohamed on 02/10/16.
  */
-public class ImagesGalleryFragment extends BaseFragment {
+public class SeriesImagesGalleryFragment extends BaseFragment {
 
 
     @Bind(R.id.pager)
     ViewPager imagesPager ;
 
-    ImagesPagerAdapter imagesPagerAdapter ;
+    SeriesImagesPagerAdapter seriesImagesPagerAdapter;
 
     View mRootView ;
-    private List<ComicsResponse.Result> result;
+    private List<SeriesResponse.Result> result;
 
-    private List<ComicsResponse.Result> filteredResult;
+    private List<SeriesResponse.Result> filteredResult;
 
     @Nullable
     @Override
@@ -50,11 +51,11 @@ public class ImagesGalleryFragment extends BaseFragment {
     public void getIntentExtras(){
 
         try {
-            result =  (List<ComicsResponse.Result>) getActivity().getIntent().getSerializableExtra(UIConstants.CHARACTER_EXTRAS);
+            result =  (List<SeriesResponse.Result>) getActivity().getIntent().getSerializableExtra(UIConstants.CHARACTER_EXTRAS);
             filteredResult = new ArrayList<>() ;
             for(int i = 0 ; i < result.size(); i ++ ){
 
-                if(result.get(i).getImages().get(0).getPath().length()>0){
+                if(result.get(i).getThumbnail().getPath().length()>0){
                     filteredResult.add(result.get(i));
                 }
             }
@@ -72,8 +73,8 @@ public class ImagesGalleryFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        imagesPagerAdapter = new ImagesPagerAdapter(getContext(),filteredResult );
-        imagesPager.setAdapter(imagesPagerAdapter);
+        seriesImagesPagerAdapter = new SeriesImagesPagerAdapter(getContext(),filteredResult );
+        imagesPager.setAdapter(seriesImagesPagerAdapter);
         imagesPager.setClipToPadding(false);
         imagesPager.setPadding(80, 40, 80, 40);
         imagesPager.setPageMargin(60);

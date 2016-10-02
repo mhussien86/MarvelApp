@@ -27,7 +27,10 @@ import com.ihorizons.marvelapp.dtos.SeriesResponse;
 import com.ihorizons.marvelapp.dtos.StoriesResponse;
 import com.ihorizons.marvelapp.views.BaseFragment;
 import com.ihorizons.marvelapp.views.UIConstants;
-import com.ihorizons.marvelapp.views.imagesgallery.ImagesGallreyActivity;
+import com.ihorizons.marvelapp.views.imagesgallery.ComicsImagesGallreyActivity;
+import com.ihorizons.marvelapp.views.imagesgallery.EventsImagesGallreyActivity;
+import com.ihorizons.marvelapp.views.imagesgallery.SeriesImagesGallreyActivity;
+import com.ihorizons.marvelapp.views.imagesgallery.StoriesImagesGallreyActivity;
 
 import org.parceler.Parcels;
 
@@ -225,16 +228,16 @@ public class CharacterDetailsFragmentNew extends BaseFragment implements Charact
 
 
         final ComicsResponse comicsResponse = (ComicsResponse)marvelCharactersDetails.get(APIConstants.COMICS_RESPONSE);
-        EventsResponse eventsResponse = (EventsResponse)marvelCharactersDetails.get(APIConstants.EVENTS_RESPONSE);
-        StoriesResponse storiesResponse = (StoriesResponse) marvelCharactersDetails.get(APIConstants.STORIES_RESPONSE);
-        SeriesResponse seriesResponse = (SeriesResponse)marvelCharactersDetails.get(APIConstants.SERIES_RESPONSE);
+        final EventsResponse eventsResponse = (EventsResponse)marvelCharactersDetails.get(APIConstants.EVENTS_RESPONSE);
+        final StoriesResponse storiesResponse = (StoriesResponse) marvelCharactersDetails.get(APIConstants.STORIES_RESPONSE);
+        final SeriesResponse seriesResponse = (SeriesResponse)marvelCharactersDetails.get(APIConstants.SERIES_RESPONSE);
 
         if(comicsResponse.getData().getResults().size()>0){
             comicsListAdapter = new ComicsListAdapter(comicsResponse.getData().getResults(), getContext(), new ComicsListAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(ComicsResponse.Result result) {
 
-                    Intent intent = new Intent(getActivity() , ImagesGallreyActivity.class);
+                    Intent intent = new Intent(getActivity() , ComicsImagesGallreyActivity.class);
 
 
                     intent.putExtra(UIConstants.CHARACTER_EXTRAS, (Serializable) comicsResponse.getData().getResults());
@@ -255,10 +258,10 @@ public class CharacterDetailsFragmentNew extends BaseFragment implements Charact
                 @Override
                 public void onItemClick(EventsResponse.Result result) {
 
-                    Intent intent = new Intent(getActivity() , ImagesGallreyActivity.class);
+                    Intent intent = new Intent(getActivity() , EventsImagesGallreyActivity.class);
 
 
-                    intent.putExtra(UIConstants.CHARACTER_EXTRAS, (Serializable) comicsResponse.getData().getResults());
+                    intent.putExtra(UIConstants.CHARACTER_EXTRAS, (Serializable) eventsResponse.getData().getResults());
 
                     getActivity().startActivity(intent);
                 }
@@ -273,9 +276,9 @@ public class CharacterDetailsFragmentNew extends BaseFragment implements Charact
             storiesListAdapter = new StoriesListAdapter(storiesResponse.getData().getResults(), getContext(), new StoriesListAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(StoriesResponse.Result result) {
-                    Intent intent = new Intent(getActivity() , ImagesGallreyActivity.class);
+                    Intent intent = new Intent(getActivity() , StoriesImagesGallreyActivity.class);
 
-                    intent.putExtra(UIConstants.CHARACTER_EXTRAS, (Serializable) comicsResponse.getData().getResults());
+                    intent.putExtra(UIConstants.CHARACTER_EXTRAS, (Serializable) storiesResponse.getData().getResults());
 
                     getActivity().startActivity(intent);
                 }
@@ -291,9 +294,9 @@ public class CharacterDetailsFragmentNew extends BaseFragment implements Charact
             seriesListAdapter = new SeriesListAdapter(seriesResponse.getData().getResults(), getContext(), new SeriesListAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(SeriesResponse.Result result) {
-                    Intent intent = new Intent(getActivity() , ImagesGallreyActivity.class);
+                    Intent intent = new Intent(getActivity() , SeriesImagesGallreyActivity.class);
 
-                    intent.putExtra(UIConstants.CHARACTER_EXTRAS, (Serializable) comicsResponse.getData().getResults());
+                    intent.putExtra(UIConstants.CHARACTER_EXTRAS, (Serializable) seriesResponse.getData().getResults());
 
                     getActivity().startActivity(intent);
                 }

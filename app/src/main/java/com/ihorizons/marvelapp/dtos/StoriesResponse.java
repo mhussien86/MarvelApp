@@ -1,12 +1,13 @@
 package com.ihorizons.marvelapp.dtos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by mohamed on 01/10/16.
  */
-public class StoriesResponse extends DetailsResponse {
+public class StoriesResponse extends DetailsResponse implements Serializable{
 
 
         private Integer code;
@@ -147,7 +148,7 @@ public class StoriesResponse extends DetailsResponse {
 
 
 
-    public class Characters {
+    public class Characters implements Serializable{
 
         private Integer available;
         private String collectionURI;
@@ -230,7 +231,7 @@ public class StoriesResponse extends DetailsResponse {
 
     }
 
-    public class Comics {
+    public class Comics implements Serializable{
 
         private Integer available;
         private String collectionURI;
@@ -313,7 +314,7 @@ public class StoriesResponse extends DetailsResponse {
 
     }
 
-    public class Creators {
+    public class Creators implements Serializable{
 
         private Integer available;
         private String collectionURI;
@@ -395,7 +396,7 @@ public class StoriesResponse extends DetailsResponse {
 
     }
 
-    public class Data {
+    public class Data implements Serializable{
 
         private Integer offset;
         private Integer limit;
@@ -497,7 +498,7 @@ public class StoriesResponse extends DetailsResponse {
 
     }
 
-    public class Events {
+    public class Events implements Serializable{
 
         private Integer available;
         private String collectionURI;
@@ -578,7 +579,7 @@ public class StoriesResponse extends DetailsResponse {
 
     }
 
-    public class Item {
+    public class Item implements Serializable{
 
         private String resourceURI;
         private String name;
@@ -642,7 +643,7 @@ public class StoriesResponse extends DetailsResponse {
 
     }
 
-    public class Item_ {
+    public class Item_ implements Serializable{
 
         private String resourceURI;
         private String name;
@@ -686,95 +687,7 @@ public class StoriesResponse extends DetailsResponse {
 
     }
 
-    public class Item__ {
-
-        private String resourceURI;
-        private String name;
-
-        /**
-         *
-         * @return
-         * The resourceURI
-         */
-        public String getResourceURI() {
-            return resourceURI;
-        }
-
-        /**
-         *
-         * @param resourceURI
-         * The resourceURI
-         */
-        public void setResourceURI(String resourceURI) {
-            this.resourceURI = resourceURI;
-        }
-
-        /**
-         *
-         * @return
-         * The name
-         */
-        public String getName() {
-            return name;
-        }
-
-        /**
-         *
-         * @param name
-         * The name
-         */
-        public void setName(String name) {
-            this.name = name;
-        }
-
-
-
-    }
-
-    public class Item___ {
-
-        private String resourceURI;
-        private String name;
-
-        /**
-         *
-         * @return
-         * The resourceURI
-         */
-        public String getResourceURI() {
-            return resourceURI;
-        }
-
-        /**
-         *
-         * @param resourceURI
-         * The resourceURI
-         */
-        public void setResourceURI(String resourceURI) {
-            this.resourceURI = resourceURI;
-        }
-
-        /**
-         *
-         * @return
-         * The name
-         */
-        public String getName() {
-            return name;
-        }
-
-        /**
-         *
-         * @param name
-         * The name
-         */
-        public void setName(String name) {
-            this.name = name;
-        }
-
-    }
-
-    public class OriginalIssue {
+    public class Item__ implements Serializable{
 
         private String resourceURI;
         private String name;
@@ -819,7 +732,95 @@ public class StoriesResponse extends DetailsResponse {
 
     }
 
-    public class Result {
+    public class Item___ implements Serializable{
+
+        private String resourceURI;
+        private String name;
+
+        /**
+         *
+         * @return
+         * The resourceURI
+         */
+        public String getResourceURI() {
+            return resourceURI;
+        }
+
+        /**
+         *
+         * @param resourceURI
+         * The resourceURI
+         */
+        public void setResourceURI(String resourceURI) {
+            this.resourceURI = resourceURI;
+        }
+
+        /**
+         *
+         * @return
+         * The name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         *
+         * @param name
+         * The name
+         */
+        public void setName(String name) {
+            this.name = name;
+        }
+
+    }
+
+    public class OriginalIssue implements Serializable{
+
+        private String resourceURI;
+        private String name;
+
+        /**
+         *
+         * @return
+         * The resourceURI
+         */
+        public String getResourceURI() {
+            return resourceURI;
+        }
+
+        /**
+         *
+         * @param resourceURI
+         * The resourceURI
+         */
+        public void setResourceURI(String resourceURI) {
+            this.resourceURI = resourceURI;
+        }
+
+        /**
+         *
+         * @return
+         * The name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         *
+         * @param name
+         * The name
+         */
+        public void setName(String name) {
+            this.name = name;
+        }
+
+
+
+    }
+
+    public class Result implements Serializable{
 
         private Integer id;
         private String title;
@@ -1071,7 +1072,7 @@ public class StoriesResponse extends DetailsResponse {
 
 
     }
-    public class Thumbnail {
+    public class Thumbnail implements Serializable{
 
         private String path;
         private String extension;
@@ -1114,7 +1115,7 @@ public class StoriesResponse extends DetailsResponse {
 
 
     }
-    public class Series {
+    public class Series implements Serializable{
 
         private Integer available;
         private String collectionURI;

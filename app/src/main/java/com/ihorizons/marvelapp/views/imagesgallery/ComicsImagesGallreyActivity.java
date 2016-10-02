@@ -6,12 +6,11 @@ import android.support.v4.app.FragmentManager;
 
 import com.ihorizons.marvelapp.R;
 import com.ihorizons.marvelapp.views.BaseActivity;
-import com.ihorizons.marvelapp.views.imagesgallery.ImagesGalleryFragment;
 
 /**
  * Created by mohamed on 02/10/16.
  */
-public class ImagesGallreyActivity extends BaseActivity{
+public class ComicsImagesGallreyActivity extends BaseActivity{
 
 
     @Override
@@ -23,7 +22,7 @@ public class ImagesGallreyActivity extends BaseActivity{
 
     private void startFragment() {
 
-        ImagesGalleryFragment comicsGalleryFragment = new ImagesGalleryFragment();
+        ComicsImagesGalleryFragment comicsGalleryFragment = new ComicsImagesGalleryFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.layCommonActivity, comicsGalleryFragment).commit();
     }
