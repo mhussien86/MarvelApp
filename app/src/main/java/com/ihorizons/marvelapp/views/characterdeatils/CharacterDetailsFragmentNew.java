@@ -1,6 +1,8 @@
 package com.ihorizons.marvelapp.views.characterdeatils;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -164,19 +166,34 @@ public class CharacterDetailsFragmentNew extends BaseFragment implements Charact
         Glide.with(getContext()).load(result.getThumbnail().getPath()+"."+result.getThumbnail().getExtension()).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).into(characterImage);
 
         characterName.setText(result.getName());
+
+
     }
 
     @OnClick({R.id.back_button, R.id.wiki_link,R.id.detail_link, R.id.comic_link})
     public void backButton(View view) {
 
+
+
         if(view.getId()==R.id.back_button) {
             getActivity().onBackPressed();
         }else if (view.getId()==R.id.wiki_link){
 
+            if(getURL("wiki").length()>0) {
+                openBrowserURL(getURL("wiki"));
+            }
         }else if (view.getId()==R.id.detail_link){
+
+            if(getURL("detail").length()>0){
+                openBrowserURL(getURL("detail"));
+            }
 
         }else if (view.getId()==R.id.comic_link){
 
+            if(getURL("comiclink").length()>0){
+                openBrowserURL(getURL("comiclink"));
+
+            }
         }
     }
 
@@ -209,29 +226,72 @@ public class CharacterDetailsFragmentNew extends BaseFragment implements Charact
         ComicsResponse comicsResponse = (ComicsResponse)marvelCharactersDetails.get(APIConstants.COMICS_RESPONSE);
 
 
-        comicsListAdapter = new ComicsListAdapter(comicsResponse.getData().getResults(),getContext());
+        if(comicsResponse.getData().getResults().size()>0){
+            comicsListAdapter = new ComicsListAdapter(comicsResponse.getData().getResults(),getContext());
 
-        comicsGallery.setAdapter(comicsListAdapter);
-
+            comicsGallery.setAdapter(comicsListAdapter);
+        }else{
+            comicsLayout.setVisibility(View.GONE);
+        }
 
         EventsResponse eventsResponse = (EventsResponse)marvelCharactersDetails.get(APIConstants.EVENTS_RESPONSE);
 
-        eventsListAdapter = new EventsListAdapter(eventsResponse.getData().getResults(),getContext());
+        if (eventsResponse.getData().getResults().get(0).getThumbnail()!=null) {
+            eventsListAdapter = new EventsListAdapter(eventsResponse.getData().getResults(), getContext());
 
-        eventsGallery.setAdapter(eventsListAdapter);
-
+            eventsGallery.setAdapter(eventsListAdapter);
+        }else {
+            eventsLayout.setVisibility(View.GONE);
+        }
         StoriesResponse storiesResponse = (StoriesResponse) marvelCharactersDetails.get(APIConstants.STORIES_RESPONSE);
 
-        storiesListAdapter = new StoriesListAdapter(storiesResponse.getData().getResults(),getContext());
-        storiesGallery.setAdapter(storiesListAdapter);
+        if(storiesResponse.getData().getResults().get(0).getThumbnail()!=null){
+            storiesListAdapter = new StoriesListAdapter(storiesResponse.getData().getResults(),getContext());
+            storiesGallery.setAdapter(storiesListAdapter);
+        }else{
+            storiesLayout.setVisibility(View.GONE);
+        }
+
 
         SeriesResponse seriesResponse = (SeriesResponse)marvelCharactersDetails.get(APIConstants.SERIES_RESPONSE);
 
-        seriesListAdapter = new SeriesListAdapter(seriesResponse.getData().getResults(),getContext());
-        seriesGallery.setAdapter(seriesListAdapter);
+        if(seriesResponse.getData().getResults().get(0).getThumbnail()!=null){
+            seriesListAdapter = new SeriesListAdapter(seriesResponse.getData().getResults(),getContext());
+            seriesGallery.setAdapter(seriesListAdapter);
+        }else{
+            seriesLayout.setVisibility(View.GONE);
+        }
+
     }
 
+    public void openBrowserURL(String url){
 
+        if (!url.startsWith("https://") && !url.startsWith("http://")){
+            url = "http://" + url;
+        }
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        getActivity().startActivity(i);
+    }
+
+    public String getURL(String target){
+
+        String url = "";
+        for (int i = 0 ; i < result.getUrls().size();i++){
+            if(result.getUrls().get(i).getType().equalsIgnoreCase("detail") && target.equalsIgnoreCase("detail")){
+                url = result.getUrls().get(i).getUrl();
+                return url ;
+            }else if (result.getUrls().get(i).getType().equalsIgnoreCase("wiki")&& target.equalsIgnoreCase("wiki")){
+                url = result.getUrls().get(i).getUrl();
+                return url ;
+            }else if(result.getUrls().get(i).getType().equalsIgnoreCase("comiclink")&& target.equalsIgnoreCase("comiclink")){
+                url = result.getUrls().get(i).getUrl();
+                return url ;
+
+            }
+        }
+        return  url ;
+    }
 
 
     @Override
