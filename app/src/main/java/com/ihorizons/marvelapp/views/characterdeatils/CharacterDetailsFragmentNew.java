@@ -224,39 +224,64 @@ public class CharacterDetailsFragmentNew extends BaseFragment implements Charact
 
 
         ComicsResponse comicsResponse = (ComicsResponse)marvelCharactersDetails.get(APIConstants.COMICS_RESPONSE);
-
+        EventsResponse eventsResponse = (EventsResponse)marvelCharactersDetails.get(APIConstants.EVENTS_RESPONSE);
+        StoriesResponse storiesResponse = (StoriesResponse) marvelCharactersDetails.get(APIConstants.STORIES_RESPONSE);
+        SeriesResponse seriesResponse = (SeriesResponse)marvelCharactersDetails.get(APIConstants.SERIES_RESPONSE);
 
         if(comicsResponse.getData().getResults().size()>0){
-            comicsListAdapter = new ComicsListAdapter(comicsResponse.getData().getResults(),getContext());
+            comicsListAdapter = new ComicsListAdapter(comicsResponse.getData().getResults(), getContext(), new ComicsListAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(ComicsResponse.Result result) {
+
+                    Intent intent = new Intent(getActivity() , ImagesGallreyActivity.class);
+
+                    intent.putExtra(UIConstants.CHARACTER_EXTRAS, Parcels.wrap(result.getImages()));
+
+                    getActivity().startActivity(intent);
+
+                }
+            });
 
             comicsGallery.setAdapter(comicsListAdapter);
         }else{
             comicsLayout.setVisibility(View.GONE);
         }
 
-        EventsResponse eventsResponse = (EventsResponse)marvelCharactersDetails.get(APIConstants.EVENTS_RESPONSE);
 
         if (eventsResponse.getData().getResults().get(0).getThumbnail()!=null) {
-            eventsListAdapter = new EventsListAdapter(eventsResponse.getData().getResults(), getContext());
+            eventsListAdapter = new EventsListAdapter(eventsResponse.getData().getResults(), getContext(), new EventsListAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(EventsResponse.Result result) {
+
+                }
+            });
 
             eventsGallery.setAdapter(eventsListAdapter);
         }else {
             eventsLayout.setVisibility(View.GONE);
         }
-        StoriesResponse storiesResponse = (StoriesResponse) marvelCharactersDetails.get(APIConstants.STORIES_RESPONSE);
 
         if(storiesResponse.getData().getResults().get(0).getThumbnail()!=null){
-            storiesListAdapter = new StoriesListAdapter(storiesResponse.getData().getResults(),getContext());
+            storiesListAdapter = new StoriesListAdapter(storiesResponse.getData().getResults(), getContext(), new StoriesListAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(StoriesResponse.Result result) {
+
+                }
+            });
             storiesGallery.setAdapter(storiesListAdapter);
         }else{
             storiesLayout.setVisibility(View.GONE);
         }
 
 
-        SeriesResponse seriesResponse = (SeriesResponse)marvelCharactersDetails.get(APIConstants.SERIES_RESPONSE);
 
         if(seriesResponse.getData().getResults().get(0).getThumbnail()!=null){
-            seriesListAdapter = new SeriesListAdapter(seriesResponse.getData().getResults(),getContext());
+            seriesListAdapter = new SeriesListAdapter(seriesResponse.getData().getResults(), getContext(), new SeriesListAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(SeriesResponse.Result result) {
+
+                }
+            });
             seriesGallery.setAdapter(seriesListAdapter);
         }else{
             seriesLayout.setVisibility(View.GONE);

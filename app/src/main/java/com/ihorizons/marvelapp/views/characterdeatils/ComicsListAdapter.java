@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ihorizons.marvelapp.R;
 import com.ihorizons.marvelapp.dtos.ComicsResponse;
+import com.ihorizons.marvelapp.dtos.ListOfCarachtersDTO;
 
 import java.util.List;
 
@@ -24,17 +25,22 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.My
 
     private Context mContext ;
 
+    private final OnItemClickListener listener;
 
 
-    public ComicsListAdapter(List<ComicsResponse.Result> results , Context context) {
+    public ComicsListAdapter(List<ComicsResponse.Result> results , Context context,OnItemClickListener listener) {
         this.results = results ;
         this.mContext = context ;
-    }
+        this.listener = listener ;
 
+    }
+    public interface OnItemClickListener {
+        void onItemClick(ComicsResponse.Result result);
+    }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.pager_item, parent, false);
+                .inflate(R.layout.horizental_list_item, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -44,6 +50,7 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.My
         ComicsResponse.Result result = results.get(position);
 
         if(result.getImages().size()>0) {
+            holder.bind(result, listener);
             holder.itemText.setText(result.getTitle());
             Glide.with(mContext).load(result.getImages().get(0).getPath() + "." + result.getImages().get(0).getExtension()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).into(holder.itemImage);
         }
@@ -63,6 +70,17 @@ public class ComicsListAdapter extends RecyclerView.Adapter<ComicsListAdapter.My
             super(view);
             itemImage = (ImageView) view.findViewById(R.id.imageView);
             itemText = (TextView) view.findViewById(R.id.item_text);
+        }
+
+        public void bind(final ComicsResponse.Result result, final OnItemClickListener listener) {
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemClick(result);
+                }
+            });
+
         }
     }
 }

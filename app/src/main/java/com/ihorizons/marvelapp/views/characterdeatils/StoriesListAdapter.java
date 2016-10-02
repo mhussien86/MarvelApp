@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ihorizons.marvelapp.R;
-import com.ihorizons.marvelapp.dtos.ComicsResponse;
+import com.ihorizons.marvelapp.dtos.ListOfCarachtersDTO;
 import com.ihorizons.marvelapp.dtos.StoriesResponse;
 
 import java.util.List;
@@ -24,20 +24,20 @@ public class StoriesListAdapter extends RecyclerView.Adapter<StoriesListAdapter.
     private List<StoriesResponse.Result> results ;
 
     private Context mContext ;
+    private final OnItemClickListener listener;
 
-
-
-
-
-    public StoriesListAdapter(List<StoriesResponse.Result> results, Context context) {
+    public StoriesListAdapter(List<StoriesResponse.Result> results, Context context, OnItemClickListener listener) {
         this.results = results ;
         this.mContext = context ;
+        this.listener = listener ;
     }
-
+    public interface OnItemClickListener {
+        void onItemClick(StoriesResponse.Result result);
+    }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.pager_item, parent, false);
+                .inflate(R.layout.horizental_list_item, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -47,6 +47,8 @@ public class StoriesListAdapter extends RecyclerView.Adapter<StoriesListAdapter.
         StoriesResponse.Result result = results.get(position);
 
         if(result.getThumbnail()!=null) {
+            holder.bind(result, listener);
+
             holder.itemText.setText(result.getTitle());
             Glide.with(mContext).load(result.getThumbnail().getPath() + "." + result.getThumbnail().getExtension()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).into(holder.itemImage);
         }
@@ -66,6 +68,11 @@ public class StoriesListAdapter extends RecyclerView.Adapter<StoriesListAdapter.
             super(view);
             itemImage = (ImageView) view.findViewById(R.id.imageView);
             itemText = (TextView) view.findViewById(R.id.item_text);
+        }
+
+        public void bind(StoriesResponse.Result result, OnItemClickListener listener) {
+
+            listener.onItemClick(result);
         }
     }
 }

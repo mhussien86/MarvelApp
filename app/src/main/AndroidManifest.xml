@@ -35,6 +35,14 @@
 
 
         </activity>
+        <activity
+            android:name=".views.characterdeatils.ImagesGallreyActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+
+
+        </activity>
+
     </application>
 
 
