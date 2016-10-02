@@ -98,5 +98,9 @@ public class StoriesImagesGalleryFragment extends BaseFragment {
 
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
 }

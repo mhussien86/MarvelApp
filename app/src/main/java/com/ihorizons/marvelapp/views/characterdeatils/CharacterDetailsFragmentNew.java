@@ -253,7 +253,7 @@ public class CharacterDetailsFragmentNew extends BaseFragment implements Charact
         }
 
 
-        if (eventsResponse.getData().getResults().get(0).getThumbnail()!=null) {
+        if (eventsResponse.getData().getResults().get(0).getThumbnail().getPath().length()>0) {
             eventsListAdapter = new EventsListAdapter(eventsResponse.getData().getResults(), getContext(), new EventsListAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(EventsResponse.Result result) {
@@ -272,7 +272,7 @@ public class CharacterDetailsFragmentNew extends BaseFragment implements Charact
             eventsLayout.setVisibility(View.GONE);
         }
 
-        if(storiesResponse.getData().getResults().get(0).getThumbnail()!=null){
+        if(storiesResponse.getData().getResults().get(0).getThumbnail().getPath().length()>0){
             storiesListAdapter = new StoriesListAdapter(storiesResponse.getData().getResults(), getContext(), new StoriesListAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(StoriesResponse.Result result) {
@@ -290,7 +290,7 @@ public class CharacterDetailsFragmentNew extends BaseFragment implements Charact
 
 
 
-        if(seriesResponse.getData().getResults().get(0).getThumbnail()!=null){
+        if(seriesResponse.getData().getResults().get(0).getThumbnail().getPath().length()>0){
             seriesListAdapter = new SeriesListAdapter(seriesResponse.getData().getResults(), getContext(), new SeriesListAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(SeriesResponse.Result result) {

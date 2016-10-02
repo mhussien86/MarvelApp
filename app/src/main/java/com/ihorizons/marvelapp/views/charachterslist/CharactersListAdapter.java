@@ -103,7 +103,7 @@ public class CharactersListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 //        Glide.with(context).load(results.get(position).getThumbnail().getPath()+"."+results.get(position).getThumbnail().getExtension()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).centerCrop().into(charactersViewHolder.characterImage);
 
-        Glide.with(context).load(results.get(position).getThumbnail().getPath() + "." + results.get(position).getThumbnail().getExtension()).asBitmap().fitCenter().centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).into(new SimpleTarget<Bitmap>() {
+        Glide.with(context).load(results.get(position).getThumbnail().getPath() + "." + results.get(position).getThumbnail().getExtension()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.ic_launcher).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(final Bitmap bitmap, GlideAnimation glideAnimation) {
                 charactersViewHolder.characterImage.setImageBitmap(bitmap); // Possibly runOnUiThread()
